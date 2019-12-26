@@ -9,15 +9,16 @@
 import SwiftUI
 
 struct SettingsView: View {
-  @State private var token = ""
-
   @ObservedObject private(set) var store: Store
 
   var body: some View {
     Form {
       Section(header: Text("Authentication")) {
-        SecureField("Token", text: $token)
-        Text("Current token is \(token.isEmpty ? "in" : "")valid")
+        SecureField(
+          "Token",
+          text: $store.authToken
+        )
+        Text("Current token is \(store.authToken.isEmpty ? "in" : "")valid")
       }
     }
   }

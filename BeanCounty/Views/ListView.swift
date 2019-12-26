@@ -18,12 +18,14 @@ private let dateFormatter: DateFormatter = {
 struct ListView: View {
   @State private var dates = [Date]()
 
-  @ObservedObject private var store = Store()
+  @ObservedObject var store: Store
+
+  @State var profileType: String = "loading..."
 
   var body: some View {
     NavigationView {
       MasterView(dates: $dates)
-        .navigationBarTitle(Text(store.currentUser))
+        .navigationBarTitle(Text(profileType))
         .navigationBarItems(
           leading: EditButton(),
           trailing: Button(
@@ -43,7 +45,9 @@ struct ListView: View {
           }
         )
       DetailView()
-    }.navigationViewStyle(DoubleColumnNavigationViewStyle())
+    }
+    .navigationViewStyle(DoubleColumnNavigationViewStyle())
+    .onReceive(store.profileType) { self.profileType = $0 }
   }
 }
 
@@ -81,6 +85,6 @@ struct DetailView: View {
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    ListView()
+    ListView(store: Store())
   }
 }

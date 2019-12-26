@@ -31,18 +31,14 @@ final class Store: ObservableObject {
     AccessTokenPlugin { [weak self] _ in self?.authToken ?? "" },
   ])
 
-  private var cancellables = Set<AnyCancellable>()
+  @Published var authToken = ""
 
-  @Published private(set) var currentUser = "loading..."
-
-  var authToken: String?
-
-  init() {
-    provider.requestPublisher(.profiles)
+  lazy var profileType = $authToken.flatMap { _ in
+    self.provider.requestPublisher(.profiles)
       .map([Profile].self)
       .map(\.[0].type)
-      .catch { _ in Just("unauthenticated") }
-      .assign(to: \.currentUser, on: self)
-      .store(in: &cancellables)
+      .catch { _ in
+        Just("request failed")
+      }
   }
 }
