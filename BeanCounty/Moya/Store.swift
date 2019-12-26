@@ -34,11 +34,13 @@ final class Store: ObservableObject {
   @Published var authToken = ""
 
   lazy var profileType = $authToken.flatMap { _ in
-    self.provider.requestPublisher(.profiles)
-      .map([Profile].self)
-      .map(\.[0].type)
-      .catch { _ in
-        Just("request failed")
-      }
+    self.provider.requestPublisher(
+      .profiles
+    )
+    .map([Profile].self)
+    .map(\.[0].type)
+    .catch { _ in
+      Just("request failed")
+    }
   }
 }
