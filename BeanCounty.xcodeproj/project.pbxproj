@@ -3,10 +3,20 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D1137CA623B4E9AC00CC036C /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = D1137CA523B4E9AC00CC036C /* Moya */; };
+		D1137CA823B4ECF100CC036C /* MoyaPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1137CA723B4ECF100CC036C /* MoyaPublisher.swift */; };
+		D1137CAB23B4ED3E00CC036C /* MoyaProvider+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1137CAA23B4ED3E00CC036C /* MoyaProvider+Combine.swift */; };
+		D1137CAD23B4ED8500CC036C /* AnyPublisher+Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1137CAC23B4ED8500CC036C /* AnyPublisher+Response.swift */; };
+		D1137CAF23B4EFAB00CC036C /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1137CAE23B4EFAB00CC036C /* Store.swift */; };
+		D1137CB123B4F5C700CC036C /* TransferWise.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1137CB023B4F5C700CC036C /* TransferWise.swift */; };
+		D1137CB423B4FC8C00CC036C /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = D1137CB323B4FC8C00CC036C /* KeychainAccess */; };
+		D1137CB723B5031300CC036C /* SettingsSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1137CB623B5031300CC036C /* SettingsSceneDelegate.swift */; };
+		D1137CB923B5053000CC036C /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1137CB823B5053000CC036C /* Activity.swift */; };
+		D1137CBC23B5067D00CC036C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1137CBB23B5067D00CC036C /* SettingsView.swift */; };
 		D1A9C7EF23A1793E00E7372D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A9C7EE23A1793E00E7372D /* AppDelegate.swift */; };
 		D1A9C7F123A1793E00E7372D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A9C7F023A1793E00E7372D /* SceneDelegate.swift */; };
 		D1A9C7F323A1793E00E7372D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A9C7F223A1793E00E7372D /* ContentView.swift */; };
@@ -35,6 +45,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D1137CA723B4ECF100CC036C /* MoyaPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaPublisher.swift; sourceTree = "<group>"; };
+		D1137CAA23B4ED3E00CC036C /* MoyaProvider+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoyaProvider+Combine.swift"; sourceTree = "<group>"; };
+		D1137CAC23B4ED8500CC036C /* AnyPublisher+Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyPublisher+Response.swift"; sourceTree = "<group>"; };
+		D1137CAE23B4EFAB00CC036C /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		D1137CB023B4F5C700CC036C /* TransferWise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferWise.swift; sourceTree = "<group>"; };
+		D1137CB623B5031300CC036C /* SettingsSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSceneDelegate.swift; sourceTree = "<group>"; };
+		D1137CB823B5053000CC036C /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		D1137CBB23B5067D00CC036C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D1A9C7EB23A1793E00E7372D /* BeanCounty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeanCounty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1A9C7EE23A1793E00E7372D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D1A9C7F023A1793E00E7372D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +67,7 @@
 		D1A9C80C23A1793F00E7372D /* BeanCountyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BeanCountyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1A9C81023A1793F00E7372D /* BeanCountyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeanCountyUITests.swift; sourceTree = "<group>"; };
 		D1A9C81223A1793F00E7372D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D1A9C81E23A1795300E7372D /* BeanCounty.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BeanCounty.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +75,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1137CB423B4FC8C00CC036C /* KeychainAccess in Frameworks */,
+				D1137CA623B4E9AC00CC036C /* Moya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +97,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D1137CA923B4ED2B00CC036C /* Moya */ = {
+			isa = PBXGroup;
+			children = (
+				D1137CA723B4ECF100CC036C /* MoyaPublisher.swift */,
+				D1137CAA23B4ED3E00CC036C /* MoyaProvider+Combine.swift */,
+				D1137CAC23B4ED8500CC036C /* AnyPublisher+Response.swift */,
+				D1137CAE23B4EFAB00CC036C /* Store.swift */,
+				D1137CB023B4F5C700CC036C /* TransferWise.swift */,
+			);
+			path = Moya;
+			sourceTree = "<group>";
+		};
+		D1137CB523B5030500CC036C /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				D1A9C7F023A1793E00E7372D /* SceneDelegate.swift */,
+				D1137CB623B5031300CC036C /* SettingsSceneDelegate.swift */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		D1137CBA23B5067000CC036C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D1A9C7F223A1793E00E7372D /* ContentView.swift */,
+				D1137CBB23B5067D00CC036C /* SettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		D1A9C7E223A1793E00E7372D = {
 			isa = PBXGroup;
 			children = (
@@ -84,7 +135,9 @@
 				D1A9C80F23A1793F00E7372D /* BeanCountyUITests */,
 				D1A9C7EC23A1793E00E7372D /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		D1A9C7EC23A1793E00E7372D /* Products */ = {
 			isa = PBXGroup;
@@ -99,9 +152,12 @@
 		D1A9C7ED23A1793E00E7372D /* BeanCounty */ = {
 			isa = PBXGroup;
 			children = (
+				D1A9C81E23A1795300E7372D /* BeanCounty.entitlements */,
+				D1137CB823B5053000CC036C /* Activity.swift */,
 				D1A9C7EE23A1793E00E7372D /* AppDelegate.swift */,
-				D1A9C7F023A1793E00E7372D /* SceneDelegate.swift */,
-				D1A9C7F223A1793E00E7372D /* ContentView.swift */,
+				D1137CB523B5030500CC036C /* Scenes */,
+				D1137CA923B4ED2B00CC036C /* Moya */,
+				D1137CBA23B5067000CC036C /* Views */,
 				D1A9C7F423A1793F00E7372D /* Assets.xcassets */,
 				D1A9C7F923A1793F00E7372D /* LaunchScreen.storyboard */,
 				D1A9C7FC23A1793F00E7372D /* Info.plist */,
@@ -143,6 +199,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D1A9C81523A1793F00E7372D /* Build configuration list for PBXNativeTarget "BeanCounty" */;
 			buildPhases = (
+				D1137CBD23B50AE400CC036C /* ShellScript */,
 				D1A9C7E723A1793E00E7372D /* Sources */,
 				D1A9C7E823A1793E00E7372D /* Frameworks */,
 				D1A9C7E923A1793E00E7372D /* Resources */,
@@ -152,6 +209,10 @@
 			dependencies = (
 			);
 			name = BeanCounty;
+			packageProductDependencies = (
+				D1137CA523B4E9AC00CC036C /* Moya */,
+				D1137CB323B4FC8C00CC036C /* KeychainAccess */,
+			);
 			productName = BeanCounty;
 			productReference = D1A9C7EB23A1793E00E7372D /* BeanCounty.app */;
 			productType = "com.apple.product-type.application";
@@ -216,7 +277,7 @@
 				};
 			};
 			buildConfigurationList = D1A9C7E623A1793E00E7372D /* Build configuration list for PBXProject "BeanCounty" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -224,6 +285,10 @@
 				Base,
 			);
 			mainGroup = D1A9C7E223A1793E00E7372D;
+			packageReferences = (
+				D1137CA423B4E9AC00CC036C /* XCRemoteSwiftPackageReference "Moya" */,
+				D1137CB223B4FC8C00CC036C /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+			);
 			productRefGroup = D1A9C7EC23A1793E00E7372D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -262,14 +327,42 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		D1137CBD23B50AE400CC036C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D1A9C7E723A1793E00E7372D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1137CAF23B4EFAB00CC036C /* Store.swift in Sources */,
+				D1137CAB23B4ED3E00CC036C /* MoyaProvider+Combine.swift in Sources */,
+				D1137CB123B4F5C700CC036C /* TransferWise.swift in Sources */,
+				D1137CB723B5031300CC036C /* SettingsSceneDelegate.swift in Sources */,
 				D1A9C7EF23A1793E00E7372D /* AppDelegate.swift in Sources */,
+				D1137CB923B5053000CC036C /* Activity.swift in Sources */,
+				D1137CAD23B4ED8500CC036C /* AnyPublisher+Response.swift in Sources */,
 				D1A9C7F123A1793E00E7372D /* SceneDelegate.swift in Sources */,
+				D1137CA823B4ECF100CC036C /* MoyaPublisher.swift in Sources */,
 				D1A9C7F323A1793E00E7372D /* ContentView.swift in Sources */,
+				D1137CBC23B5067D00CC036C /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -434,7 +527,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BeanCounty/BeanCounty.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"BeanCounty/Preview Content\"";
 				DEVELOPMENT_TEAM = H4Z9Z4RD2G;
 				ENABLE_PREVIEWS = YES;
@@ -445,6 +540,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dsignal.BeanCounty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -454,7 +550,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BeanCounty/BeanCounty.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"BeanCounty/Preview Content\"";
 				DEVELOPMENT_TEAM = H4Z9Z4RD2G;
 				ENABLE_PREVIEWS = YES;
@@ -465,6 +563,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dsignal.BeanCounty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -594,6 +693,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D1137CA423B4E9AC00CC036C /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = "14.0.0-beta.6";
+			};
+		};
+		D1137CB223B4FC8C00CC036C /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D1137CA523B4E9AC00CC036C /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D1137CA423B4E9AC00CC036C /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
+		};
+		D1137CB323B4FC8C00CC036C /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D1137CB223B4FC8C00CC036C /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D1A9C7E323A1793E00E7372D /* Project object */;
 }

@@ -1,0 +1,11 @@
+--indent 2
+--indentcase false
+--trimwhitespace always
+--ranges nospace
+--empty tuple
+--operatorfunc nospace
+--ifdef noindent
+--stripunusedargs closure-only
+--disable andOperator
+--exclude **/Pods
+--swiftversion 5.0
