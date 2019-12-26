@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  ListView.swift
 //  BeanCounty
 //
 //  Created by Max Desiatov on 11/12/2019.
@@ -15,7 +15,7 @@ private let dateFormatter: DateFormatter = {
   return dateFormatter
 }()
 
-struct ContentView: View {
+struct ListView: View {
   @State private var dates = [Date]()
 
   @ObservedObject private var store = Store()
@@ -32,7 +32,7 @@ struct ContentView: View {
                 .shared
                 .requestSceneSessionActivation(
                   nil,
-                  userActivity: nil,
+                  userActivity: Activity.settings.userActivity,
                   options: nil,
                   errorHandler: nil
                 )
@@ -81,6 +81,6 @@ struct DetailView: View {
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    ContentView()
+    ListView()
   }
 }

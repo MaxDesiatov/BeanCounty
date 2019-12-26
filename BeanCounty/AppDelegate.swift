@@ -8,8 +8,12 @@
 
 import UIKit
 
+let storeKey = "store"
+
 @UIApplicationMain
 final class AppDelegate: UIResponder, UIApplicationDelegate {
+  private let store = Store()
+
   func application(
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
@@ -28,8 +32,10 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     // Called when a new scene session is being created.
     // Use this method to select a configuration to create the new scene with.
 
-    let name = options.userActivities.contains(Activity.settings.userActivity) ?
+    let name = options.userActivities.contains { $0.activityType == Activity.settings.type } ?
       "Settings" : "Default Configuration"
+
+    connectingSceneSession.userInfo?[storeKey] = store
 
     return UISceneConfiguration(name: name, sessionRole: connectingSceneSession.role)
   }

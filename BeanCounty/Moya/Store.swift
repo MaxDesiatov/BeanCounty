@@ -27,19 +27,21 @@ struct Details: Codable {
 }
 
 final class Store: ObservableObject {
-  private let provider = MoyaProvider<TransferWise>(plugins: [
-    AccessTokenPlugin { _ in "" },
+  private lazy var provider = MoyaProvider<TransferWise>(plugins: [
+    AccessTokenPlugin { [weak self] _ in self?.authToken ?? "" },
   ])
 
   private var cancellables = Set<AnyCancellable>()
 
-  @Published var currentUser = "loading..."
+  @Published private(set) var currentUser = "loading..."
+
+  var authToken: String?
 
   init() {
     provider.requestPublisher(.profiles)
       .map([Profile].self)
       .map(\.[0].type)
-      .assertNoFailure()
+      .catch { _ in Just("unauthenticated") }
       .assign(to: \.currentUser, on: self)
       .store(in: &cancellables)
   }

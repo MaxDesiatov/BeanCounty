@@ -19,7 +19,7 @@
 		D1137CBC23B5067D00CC036C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1137CBB23B5067D00CC036C /* SettingsView.swift */; };
 		D1A9C7EF23A1793E00E7372D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A9C7EE23A1793E00E7372D /* AppDelegate.swift */; };
 		D1A9C7F123A1793E00E7372D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A9C7F023A1793E00E7372D /* SceneDelegate.swift */; };
-		D1A9C7F323A1793E00E7372D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A9C7F223A1793E00E7372D /* ContentView.swift */; };
+		D1A9C7F323A1793E00E7372D /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A9C7F223A1793E00E7372D /* ListView.swift */; };
 		D1A9C7F523A1793F00E7372D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1A9C7F423A1793F00E7372D /* Assets.xcassets */; };
 		D1A9C7F823A1793F00E7372D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1A9C7F723A1793F00E7372D /* Preview Assets.xcassets */; };
 		D1A9C7FB23A1793F00E7372D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1A9C7F923A1793F00E7372D /* LaunchScreen.storyboard */; };
@@ -56,7 +56,7 @@
 		D1A9C7EB23A1793E00E7372D /* BeanCounty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeanCounty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1A9C7EE23A1793E00E7372D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D1A9C7F023A1793E00E7372D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D1A9C7F223A1793E00E7372D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D1A9C7F223A1793E00E7372D /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		D1A9C7F423A1793F00E7372D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D1A9C7F723A1793F00E7372D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D1A9C7FA23A1793F00E7372D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -121,7 +121,7 @@
 		D1137CBA23B5067000CC036C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D1A9C7F223A1793E00E7372D /* ContentView.swift */,
+				D1A9C7F223A1793E00E7372D /* ListView.swift */,
 				D1137CBB23B5067D00CC036C /* SettingsView.swift */,
 			);
 			path = Views;
@@ -361,7 +361,7 @@
 				D1137CAD23B4ED8500CC036C /* AnyPublisher+Response.swift in Sources */,
 				D1A9C7F123A1793E00E7372D /* SceneDelegate.swift in Sources */,
 				D1137CA823B4ECF100CC036C /* MoyaPublisher.swift in Sources */,
-				D1A9C7F323A1793E00E7372D /* ContentView.swift in Sources */,
+				D1A9C7F323A1793E00E7372D /* ListView.swift in Sources */,
 				D1137CBC23B5067D00CC036C /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

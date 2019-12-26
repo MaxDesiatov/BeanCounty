@@ -12,7 +12,11 @@ enum Activity: String {
   case list
   case settings
 
+  var type: String {
+    "com.dsignal.BeanCounty.\(rawValue)"
+  }
+
   var userActivity: NSUserActivity {
-    NSUserActivity(activityType: "com.dsignal.BeanCounty.\(rawValue)")
+    NSUserActivity(activityType: type)
   }
 }
