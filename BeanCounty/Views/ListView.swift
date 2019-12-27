@@ -47,7 +47,16 @@ struct ListView: View {
       DetailView()
     }
     .navigationViewStyle(DoubleColumnNavigationViewStyle())
-    .onReceive(store.profileType) { self.profileType = $0 }
+    .onReceive(store.profileType) {
+      switch $0 {
+      case let .loaded(type):
+        self.profileType = type
+      case .loading:
+        self.profileType = "loading"
+      case let .failed(error):
+        self.profileType = error.localizedDescription
+      }
+    }
   }
 }
 

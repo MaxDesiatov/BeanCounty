@@ -30,13 +30,6 @@ struct Account: Codable {
   let creationTime, modificationTime: String
   let active, eligible: Bool
   let balances: [Balance]
-
-  enum CodingKeys: String, CodingKey {
-    case id
-    case profileID
-    case recipientID
-    case creationTime, modificationTime, active, eligible, balances
-  }
 }
 
 struct Balance: Codable {
@@ -51,8 +44,18 @@ struct Amount: Codable {
 
 private let transferWiseTokenKey = "transferWiseToken"
 
+enum ResponseError: Error {
+  case noArrayElements
+}
+
+enum ResponseState<T> {
+  case loading
+  case failed(Error)
+  case loaded(T)
+}
+
 final class Store: ObservableObject {
-  private lazy var transfwerWiseProvider = MoyaProvider<TransferWise>(plugins: [
+  private lazy var transferWiseProvider = MoyaProvider<TransferWise>(plugins: [
     AccessTokenPlugin { [weak self] _ in self?.transferWiseToken ?? "" },
   ])
 
@@ -75,12 +78,27 @@ final class Store: ObservableObject {
       .store(in: &subscriptions)
   }
 
-  lazy var profileType = $transferWiseToken.flatMap { _ in
-    self.transfwerWiseProvider.requestPublisher(
+  private(set) lazy var profileType = $transferWiseToken.flatMap { _ in
+    self.transferWiseProvider.requestPublisher(
       .profiles
     )
     .map([Profile].self)
-    .map(\.[0].type)
+    .tryMap {
+      guard let type = $0.first?.type else {
+        throw ResponseError.noArrayElements
+      }
+
+      return ResponseState.loaded(type)
+    }
+    .catch { Just(ResponseState<String>.failed($0)) }
+  }
+
+  private(set) lazy var accounts = $transferWiseToken.flatMap { _ in
+    self.transferWiseProvider.requestPublisher(
+      .profiles
+    )
+    .map([Account].self)
+    .map(\.[0].creationTime)
     .catch { _ in
       Just("request failed")
     }
