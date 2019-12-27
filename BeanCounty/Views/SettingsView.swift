@@ -16,9 +16,9 @@ struct SettingsView: View {
       Section(header: Text("Authentication")) {
         SecureField(
           "Token",
-          text: $store.authToken
+          text: $store.transferWiseToken
         )
-        Text("Current token is \(store.authToken.isEmpty ? "in" : "")valid")
+        Text("Current token is \(store.transferWiseToken.isEmpty ? "in" : "")valid")
       }
     }
   }

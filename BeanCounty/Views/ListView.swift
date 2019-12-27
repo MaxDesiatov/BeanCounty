@@ -41,7 +41,7 @@ struct ListView: View {
 //              withAnimation { self.dates.insert(Date(), at: 0) }
             }
           ) {
-            Image(systemName: "plus")
+            Image(systemName: "gear")
           }
         )
       DetailView()

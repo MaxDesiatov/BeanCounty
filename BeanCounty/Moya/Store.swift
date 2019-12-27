@@ -7,6 +7,7 @@
 //
 
 import Combine
+import KeychainAccess
 import Moya
 
 struct Profile: Codable {
@@ -14,8 +15,6 @@ struct Profile: Codable {
   let type: String
   let details: Details
 }
-
-// MARK: - Details
 
 struct Details: Codable {
   let firstName, lastName, dateOfBirth, phoneNumber: String?
@@ -26,15 +25,34 @@ struct Details: Codable {
   let businessCategory, businessSubCategory: String?
 }
 
+private let transferWiseTokenKey = "transferWiseToken"
+
 final class Store: ObservableObject {
-  private lazy var provider = MoyaProvider<TransferWise>(plugins: [
-    AccessTokenPlugin { [weak self] _ in self?.authToken ?? "" },
+  private lazy var transfwerWiseProvider = MoyaProvider<TransferWise>(plugins: [
+    AccessTokenPlugin { [weak self] _ in self?.transferWiseToken ?? "" },
   ])
 
-  @Published var authToken = ""
+  @Published var transferWiseToken: String
 
-  lazy var profileType = $authToken.flatMap { _ in
-    self.provider.requestPublisher(
+  private let keychain: Keychain
+  private var subscriptions = Set<AnyCancellable>()
+
+  init() {
+    keychain = Keychain(service: "com.dsignal.BeanCounty")
+    transferWiseToken = keychain[transferWiseTokenKey] ?? ""
+
+    $transferWiseToken
+      // stop rewriting the token just after it's loaded here with `dropFirst`
+      .dropFirst()
+      // convert from non-optional to optional
+      .map { $0 }
+      // store updated token in the keychain
+      .assign(to: \.[transferWiseTokenKey], on: keychain)
+      .store(in: &subscriptions)
+  }
+
+  lazy var profileType = $transferWiseToken.flatMap { _ in
+    self.transfwerWiseProvider.requestPublisher(
       .profiles
     )
     .map([Profile].self)
