@@ -25,4 +25,5 @@ struct TransferWise: TargetType, AccessTokenAuthorizable {
 
 extension TransferWise {
   static let profiles = TransferWise(path: "profiles")
+  static let accounts = TransferWise(path: "borderless-accounts")
 }

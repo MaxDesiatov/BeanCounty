@@ -25,6 +25,30 @@ struct Details: Codable {
   let businessCategory, businessSubCategory: String?
 }
 
+struct Account: Codable {
+  let id, profileID, recipientID: Int
+  let creationTime, modificationTime: String
+  let active, eligible: Bool
+  let balances: [Balance]
+
+  enum CodingKeys: String, CodingKey {
+    case id
+    case profileID
+    case recipientID
+    case creationTime, modificationTime, active, eligible, balances
+  }
+}
+
+struct Balance: Codable {
+  let balanceType, currency: String
+  let amount, reservedAmount: Amount
+}
+
+struct Amount: Codable {
+  let value: Double
+  let currency: String
+}
+
 private let transferWiseTokenKey = "transferWiseToken"
 
 final class Store: ObservableObject {
