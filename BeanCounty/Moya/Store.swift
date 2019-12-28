@@ -61,6 +61,9 @@ final class Store: ObservableObject {
 
   @Published var transferWiseToken: String
 
+  /// Index of a currently selected profile
+  @Published var selectedProfileIndex = 0
+
   private let keychain: Keychain
   private var subscriptions = Set<AnyCancellable>()
 
@@ -78,29 +81,32 @@ final class Store: ObservableObject {
       .store(in: &subscriptions)
   }
 
-  private(set) lazy var profileType = $transferWiseToken.flatMap { _ in
-    self.transferWiseProvider.requestPublisher(
-      .profiles
-    )
-    .map([Profile].self)
-    .tryMap {
-      guard let type = $0.first?.type else {
-        throw ResponseError.noArrayElements
+  private(set) lazy var profileType = $transferWiseToken
+    .combineLatest($selectedProfileIndex)
+    .flatMap { _, profileIndex in
+      self.transferWiseProvider.requestPublisher(
+        .profiles
+      )
+      .map([Profile].self)
+      .tryMap {
+        guard $0.count > profileIndex else {
+          throw ResponseError.noArrayElements
+        }
+
+        return ResponseState.loaded($0[profileIndex].type)
       }
-
-      return ResponseState.loaded(type)
+      .catch { Just(ResponseState<String>.failed($0)) }
     }
-    .catch { Just(ResponseState<String>.failed($0)) }
-  }
 
-  private(set) lazy var accounts = $transferWiseToken.flatMap { _ in
-    self.transferWiseProvider.requestPublisher(
-      .profiles
-    )
-    .map([Account].self)
-    .map(\.[0].creationTime)
-    .catch { _ in
-      Just("request failed")
+  private(set) lazy var accounts = $transferWiseToken
+    .combineLatest($selectedProfileIndex).flatMap { _ in
+      self.transferWiseProvider.requestPublisher(
+        .accounts
+      )
+      .map([Account].self)
+      .map(\.[0].creationTime)
+      .catch { _ in
+        Just("request failed")
+      }
     }
-  }
 }
