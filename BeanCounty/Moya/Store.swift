@@ -25,19 +25,19 @@ struct Details: Codable {
   let businessCategory, businessSubCategory: String?
 }
 
-struct Account: Codable {
+struct Account: Codable, Identifiable, Hashable {
   let id, profileID, recipientID: Int
   let creationTime, modificationTime: String
   let active, eligible: Bool
   let balances: [Balance]
 }
 
-struct Balance: Codable {
+struct Balance: Codable, Hashable {
   let balanceType, currency: String
   let amount, reservedAmount: Amount
 }
 
-struct Amount: Codable {
+struct Amount: Codable, Hashable {
   let value: Double
   let currency: String
 }
@@ -46,12 +46,6 @@ private let transferWiseTokenKey = "transferWiseToken"
 
 enum ResponseError: Error {
   case noArrayElements
-}
-
-enum ResponseState<T> {
-  case loading
-  case failed(Error)
-  case loaded(T)
 }
 
 final class Store: ObservableObject {
@@ -63,6 +57,8 @@ final class Store: ObservableObject {
 
   /// Index of a currently selected profile
   @Published var selectedProfileIndex = 0
+
+  @Published var availableProfiles: Result<[Profile], Error>?
 
   private let keychain: Keychain
   private var subscriptions = Set<AnyCancellable>()
@@ -79,34 +75,44 @@ final class Store: ObservableObject {
       // store updated token in the keychain
       .assign(to: \.[transferWiseTokenKey], on: keychain)
       .store(in: &subscriptions)
+
+    profiles
+      .map { $0 }
+      .assign(to: \.availableProfiles, on: self)
+      .store(in: &subscriptions)
   }
 
-  private(set) lazy var profileType = $transferWiseToken
-    .combineLatest($selectedProfileIndex)
-    .flatMap { _, profileIndex in
+  private(set) lazy var profiles = $transferWiseToken
+    .flatMap { _ in
       self.transferWiseProvider.requestPublisher(
         .profiles
       )
       .map([Profile].self)
-      .tryMap {
-        guard $0.count > profileIndex else {
-          throw ResponseError.noArrayElements
-        }
+      .map(Result<[Profile], Error>.success)
+      .catch { Just(.failure($0)) }
+    }.eraseToAnyPublisher()
 
-        return ResponseState.loaded($0[profileIndex].type)
-      }
-      .catch { Just(ResponseState<String>.failed($0)) }
-    }
+  private(set) lazy var selectedProfile = $availableProfiles
+    .compactMap { $0 }
+    .combineLatest($selectedProfileIndex)
+    .map { profiles, index in
+      profiles.map { $0[index] }
+    }.eraseToAnyPublisher()
 
   private(set) lazy var accounts = $transferWiseToken
-    .combineLatest($selectedProfileIndex).flatMap { _ in
+    .setFailureType(to: Error.self)
+    .combineLatest(
+      // unwrap `Result` type to make processing easier
+      selectedProfile.tryMap { try $0.get() }
+    )
+    .flatMap { _, profile in
       self.transferWiseProvider.requestPublisher(
-        .accounts
+        .accounts(profileID: profile.id)
       )
       .map([Account].self)
-      .map(\.[0].creationTime)
-      .catch { _ in
-        Just("request failed")
-      }
+      .mapError { $0 as Error }
     }
+    .map(Result<[Account], Error>.success)
+    .catch { Just(.failure($0)) }
+    .eraseToAnyPublisher()
 }

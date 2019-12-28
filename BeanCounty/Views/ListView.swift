@@ -16,7 +16,7 @@ private let dateFormatter: DateFormatter = {
 }()
 
 struct ListView: View {
-  @State private var dates = [Date]()
+  @State private var accounts = [Account]()
 
   @ObservedObject var store: Store
 
@@ -24,7 +24,7 @@ struct ListView: View {
 
   var body: some View {
     NavigationView {
-      MasterView(dates: $dates)
+      MasterView(accounts: $accounts)
         .navigationBarTitle(Text(profileType))
         .navigationBarItems(
           leading: EditButton(),
@@ -47,13 +47,19 @@ struct ListView: View {
       DetailView()
     }
     .navigationViewStyle(DoubleColumnNavigationViewStyle())
-    .onReceive(store.profileType) {
+    .onReceive(store.selectedProfile) {
       switch $0 {
-      case let .loaded(type):
-        self.profileType = type
-      case .loading:
-        self.profileType = "loading"
-      case let .failed(error):
+      case let .success(profile):
+        self.profileType = profile.type
+      case let .failure(error):
+        self.profileType = error.localizedDescription
+      }
+    }
+    .onReceive(store.accounts) {
+      switch $0 {
+      case let .success(accounts):
+        self.accounts = accounts
+      case let .failure(error):
         self.profileType = error.localizedDescription
       }
     }
@@ -61,30 +67,30 @@ struct ListView: View {
 }
 
 struct MasterView: View {
-  @Binding var dates: [Date]
+  @Binding var accounts: [Account]
 
   var body: some View {
     List {
-      ForEach(dates, id: \.self) { date in
+      ForEach(accounts, id: \.self) { account in
         NavigationLink(
-          destination: DetailView(selectedDate: date)
+          destination: DetailView(selectedDate: account.creationTime)
         ) {
-          Text("\(date, formatter: dateFormatter)")
+          Text(account.creationTime)
         }
       }.onDelete { indices in
-        indices.forEach { self.dates.remove(at: $0) }
+        indices.forEach { self.accounts.remove(at: $0) }
       }
     }
   }
 }
 
 struct DetailView: View {
-  var selectedDate: Date?
+  var selectedDate: String?
 
   var body: some View {
     Group {
       if selectedDate != nil {
-        Text("\(selectedDate!, formatter: dateFormatter)")
+        Text(selectedDate!)
       } else {
         Text("Detail view content goes here")
       }

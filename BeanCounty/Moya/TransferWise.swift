@@ -16,7 +16,7 @@ struct TransferWise: TargetType, AccessTokenAuthorizable {
 
   let sampleData = Data()
 
-  let task = Task.requestPlain
+  let task: Task
 
   let headers: [String: String]? = nil
 
@@ -24,6 +24,11 @@ struct TransferWise: TargetType, AccessTokenAuthorizable {
 }
 
 extension TransferWise {
-  static let profiles = TransferWise(path: "profiles")
-  static let accounts = TransferWise(path: "borderless-accounts")
+  static let profiles = TransferWise(path: "profiles", task: .requestPlain)
+  static func accounts(profileID: Int) -> TransferWise {
+    TransferWise(
+      path: "borderless-accounts",
+      task: .requestParameters(parameters: ["profileId": profileID], encoding: URLEncoding())
+    )
+  }
 }
