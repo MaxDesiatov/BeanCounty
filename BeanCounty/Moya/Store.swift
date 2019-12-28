@@ -26,6 +26,13 @@ struct Details: Codable {
 }
 
 struct Account: Codable, Identifiable, Hashable {
+  enum CodingKeys: String, CodingKey {
+    case id
+    case profileID = "profileId"
+    case recipientID = "recipientId"
+    case creationTime, modificationTime, active, eligible, balances
+  }
+
   let id, profileID, recipientID: Int
   let creationTime, modificationTime: String
   let active, eligible: Bool
