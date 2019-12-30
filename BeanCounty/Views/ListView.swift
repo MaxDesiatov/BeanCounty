@@ -38,7 +38,6 @@ struct ListView: View {
                   options: nil,
                   errorHandler: nil
                 )
-//              withAnimation { self.dates.insert(Date(), at: 0) }
             }
           ) {
             Image(systemName: "gear")
