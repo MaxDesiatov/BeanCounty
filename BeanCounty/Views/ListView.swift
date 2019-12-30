@@ -16,7 +16,7 @@ private let dateFormatter: DateFormatter = {
 }()
 
 struct ListView: View {
-  @State private var accounts = [Account]()
+  @State private var balances = [Balance]()
 
   @ObservedObject var store: Store
 
@@ -24,7 +24,7 @@ struct ListView: View {
 
   var body: some View {
     NavigationView {
-      MasterView(accounts: $accounts)
+      MasterView(balances: $balances)
         .navigationBarTitle(Text(profileType))
         .navigationBarItems(
           leading: EditButton(),
@@ -57,7 +57,7 @@ struct ListView: View {
     .onReceive(store.accounts) {
       switch $0 {
       case let .success(accounts):
-        self.accounts = accounts
+        self.balances = accounts.flatMap { $0.balances }
       case let .failure(error):
         self.profileType = error.localizedDescription
       }
@@ -66,30 +66,28 @@ struct ListView: View {
 }
 
 struct MasterView: View {
-  @Binding var accounts: [Account]
+  @Binding var balances: [Balance]
 
   var body: some View {
     List {
-      ForEach(accounts, id: \.self) { account in
+      ForEach(balances, id: \.self) { balance in
         NavigationLink(
-          destination: DetailView(selectedDate: account.creationTime)
+          destination: DetailView(text: "blah")
         ) {
-          Text(account.creationTime)
+          Text("\(balance.amount.value as NSNumber) \(balance.currency)")
         }
-      }.onDelete { indices in
-        indices.forEach { self.accounts.remove(at: $0) }
       }
     }
   }
 }
 
 struct DetailView: View {
-  var selectedDate: String?
+  var text: String?
 
   var body: some View {
     Group {
-      if selectedDate != nil {
-        Text(selectedDate!)
+      if text != nil {
+        Text(text!)
       } else {
         Text("Detail view content goes here")
       }

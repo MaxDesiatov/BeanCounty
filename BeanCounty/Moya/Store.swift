@@ -7,6 +7,7 @@
 //
 
 import Combine
+import Foundation
 import KeychainAccess
 import Moya
 
@@ -45,7 +46,7 @@ struct Balance: Codable, Hashable {
 }
 
 struct Amount: Codable, Hashable {
-  let value: Double
+  let value: Decimal
   let currency: String
 }
 
