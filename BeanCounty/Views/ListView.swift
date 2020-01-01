@@ -15,12 +15,14 @@ private let dateFormatter: DateFormatter = {
   return dateFormatter
 }()
 
-struct ListView: View {
+struct ListView<Style>: View where Style: NavigationViewStyle {
   @State private var balances = [Balance]()
 
   @ObservedObject var store: Store
 
   @State var profileType: String = "loading..."
+
+  let style: Style
 
   var body: some View {
     NavigationView {
@@ -45,7 +47,7 @@ struct ListView: View {
         )
       DetailView()
     }
-    .navigationViewStyle(DoubleColumnNavigationViewStyle())
+    .navigationViewStyle(style)
     .onReceive(store.selectedProfile) {
       switch $0 {
       case let .success(profile):
@@ -97,6 +99,6 @@ struct DetailView: View {
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    ListView(store: Store())
+    ListView(store: Store(), style: StackNavigationViewStyle())
   }
 }
