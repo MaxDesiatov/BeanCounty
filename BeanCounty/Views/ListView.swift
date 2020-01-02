@@ -99,6 +99,27 @@ struct DetailView: View {
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    ListView(store: Store(), style: StackNavigationViewStyle())
+    ListView(
+      store: Store(availableProfiles: .success([Profile(
+        id: 42,
+        type: "personal",
+        details: Details(
+          firstName: "Test",
+          lastName: "User",
+          dateOfBirth: nil,
+          phoneNumber: nil,
+          primaryAddress: 42,
+          name: "Name",
+          registrationNumber: nil,
+          companyType: nil,
+          companyRole: nil,
+          descriptionOfBusiness: nil,
+          webpage: nil,
+          businessCategory: nil,
+          businessSubCategory: nil
+        )
+      )])),
+      style: StackNavigationViewStyle()
+    )
   }
 }

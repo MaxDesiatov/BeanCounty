@@ -71,7 +71,8 @@ final class Store: ObservableObject {
   private let keychain: Keychain
   private var subscriptions = Set<AnyCancellable>()
 
-  init() {
+  init(availableProfiles: Result<[Profile], Error>? = nil) {
+    self.availableProfiles = availableProfiles
     keychain = Keychain(service: "com.dsignal.BeanCounty")
     transferWiseToken = keychain[transferWiseTokenKey] ?? ""
 
