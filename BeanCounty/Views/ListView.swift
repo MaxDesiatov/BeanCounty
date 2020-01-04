@@ -15,7 +15,7 @@ private let dateFormatter: DateFormatter = {
   return dateFormatter
 }()
 
-struct ListView<Style>: View where Style: NavigationViewStyle {
+struct ListView<Style: NavigationViewStyle>: View {
   @State private var balances = [Balance]()
 
   @ObservedObject var store: Store
