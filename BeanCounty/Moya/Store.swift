@@ -11,45 +11,6 @@ import Foundation
 import KeychainAccess
 import Moya
 
-struct Profile: Codable {
-  let id: Int
-  let type: String
-  let details: Details
-}
-
-struct Details: Codable {
-  let firstName, lastName, dateOfBirth, phoneNumber: String?
-  let primaryAddress: Int
-  let name, registrationNumber: String?
-  let companyType, companyRole, descriptionOfBusiness: String?
-  let webpage: String?
-  let businessCategory, businessSubCategory: String?
-}
-
-struct Account: Codable, Identifiable, Hashable {
-  enum CodingKeys: String, CodingKey {
-    case id
-    case profileID = "profileId"
-    case recipientID = "recipientId"
-    case creationTime, modificationTime, active, eligible, balances
-  }
-
-  let id, profileID, recipientID: Int
-  let creationTime, modificationTime: String
-  let active, eligible: Bool
-  let balances: [Balance]
-}
-
-struct Balance: Codable, Hashable {
-  let balanceType, currency: String
-  let amount, reservedAmount: Amount
-}
-
-struct Amount: Codable, Hashable {
-  let value: Decimal
-  let currency: String
-}
-
 private let transferWiseTokenKey = "transferWiseToken"
 
 enum ResponseError: Error {

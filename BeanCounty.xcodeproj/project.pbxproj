@@ -25,6 +25,7 @@
 		D1A9C7FB23A1793F00E7372D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1A9C7F923A1793F00E7372D /* LaunchScreen.storyboard */; };
 		D1A9C80623A1793F00E7372D /* BeanCountyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A9C80523A1793F00E7372D /* BeanCountyTests.swift */; };
 		D1A9C81123A1793F00E7372D /* BeanCountyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A9C81023A1793F00E7372D /* BeanCountyUITests.swift */; };
+		D1F24A0A23C2737900AD5592 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F24A0923C2737900AD5592 /* Model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 		D1A9C81023A1793F00E7372D /* BeanCountyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeanCountyUITests.swift; sourceTree = "<group>"; };
 		D1A9C81223A1793F00E7372D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D1A9C81E23A1795300E7372D /* BeanCounty.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BeanCounty.entitlements; sourceTree = "<group>"; };
+		D1F24A0923C2737900AD5592 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +157,7 @@
 				D1A9C81E23A1795300E7372D /* BeanCounty.entitlements */,
 				D1137CB823B5053000CC036C /* Activity.swift */,
 				D1A9C7EE23A1793E00E7372D /* AppDelegate.swift */,
+				D1F24A0923C2737900AD5592 /* Model.swift */,
 				D1137CB523B5030500CC036C /* Scenes */,
 				D1137CA923B4ED2B00CC036C /* Moya */,
 				D1137CBA23B5067000CC036C /* Views */,
@@ -355,6 +358,7 @@
 				D1137CAF23B4EFAB00CC036C /* Store.swift in Sources */,
 				D1137CAB23B4ED3E00CC036C /* MoyaProvider+Combine.swift in Sources */,
 				D1137CB123B4F5C700CC036C /* TransferWise.swift in Sources */,
+				D1F24A0A23C2737900AD5592 /* Model.swift in Sources */,
 				D1137CB723B5031300CC036C /* SettingsSceneDelegate.swift in Sources */,
 				D1A9C7EF23A1793E00E7372D /* AppDelegate.swift in Sources */,
 				D1137CB923B5053000CC036C /* Activity.swift in Sources */,
