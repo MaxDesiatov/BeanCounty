@@ -26,7 +26,7 @@ struct ListView<Style: NavigationViewStyle>: View {
 
   var body: some View {
     NavigationView {
-      MasterView(balances: $balances)
+      AccountsList(balances: $balances)
         .navigationBarTitle(Text(profileType))
         .navigationBarItems(
           leading: EditButton(),
@@ -62,22 +62,6 @@ struct ListView<Style: NavigationViewStyle>: View {
         self.balances = accounts.flatMap { $0.balances }
       case let .failure(error):
         self.profileType = error.localizedDescription
-      }
-    }
-  }
-}
-
-struct MasterView: View {
-  @Binding var balances: [Balance]
-
-  var body: some View {
-    List {
-      ForEach(balances, id: \.self) { balance in
-        NavigationLink(
-          destination: DetailView(text: "blah")
-        ) {
-          Text("\(balance.amount.value as NSNumber) \(balance.currency)")
-        }
       }
     }
   }

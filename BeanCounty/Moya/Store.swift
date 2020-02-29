@@ -25,9 +25,9 @@ final class Store: ObservableObject {
   @Published var transferWiseToken: String
 
   /// Index of a currently selected profile
-  @Published var selectedProfileIndex = 0
+  @Published private(set) var selectedProfileIndex = 0
 
-  @Published var availableProfiles: Result<[Profile], Error>?
+  @Published private(set) var availableProfiles: Result<[Profile], Error>?
 
   private let keychain: Keychain
   private var subscriptions = Set<AnyCancellable>()
@@ -83,6 +83,7 @@ final class Store: ObservableObject {
       .mapError { $0 as Error }
     }
     .map(Result<[Account], Error>.success)
+    // FIXME: `catch` outside of `flatMap` means that this chain breaks on any error
     .catch { Just(.failure($0)) }
     .eraseToAnyPublisher()
 }
