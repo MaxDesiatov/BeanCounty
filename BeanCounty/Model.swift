@@ -23,7 +23,7 @@ struct Details: Codable {
   let businessCategory, businessSubCategory: String?
 }
 
-struct Account: Codable, Identifiable, Hashable {
+struct Account: Codable {
   enum CodingKeys: String, CodingKey {
     case id
     case profileID = "profileId"
@@ -37,12 +37,16 @@ struct Account: Codable, Identifiable, Hashable {
   let balances: [Balance]
 }
 
-struct Balance: Codable, Hashable {
+struct Balance: Codable {
   let balanceType, currency: String
-  let amount, reservedAmount: Amount
+  let amount: Amount
 }
 
-struct Amount: Codable, Hashable {
+extension Balance: Identifiable {
+  var id: String { currency }
+}
+
+struct Amount: Codable {
   let value: Decimal
   let currency: String
 }
@@ -51,77 +55,58 @@ struct Statement: Codable {
   let accountHolder: AccountHolder
   let issuer: Issuer
   let transactions: [Transaction]
-  let endOfStatementBalance: EndOfStatementBalance
+  let endOfStatementBalance: Amount
   let query: Query
 }
 
 struct AccountHolder: Codable {
   let type: String
   let address: Address
-  let firstName, lastName: String
+  let firstName: String?
+  let lastName: String?
 }
 
 struct Address: Codable {
-  let addressFirstLine, city, postCode, stateCode: String
+  let addressFirstLine, city, postCode: String
+  let stateCode: String?
   let countryName: String
-}
-
-// MARK: - EndOfStatementBalance
-
-struct EndOfStatementBalance: Codable {
-  let value: Double
-  let currency: String
 }
 
 struct Issuer: Codable {
   let name, firstLine, city, postCode: String
-  let stateCode, country: String
+  let stateCode: String?
+  let country: String
 }
 
 struct Query: Codable {
-  let intervalStart: Date
+  let intervalStart: String
   let intervalEnd: String
   let currency: String
-  let accountID: Int
-
-  enum CodingKeys: String, CodingKey {
-    case intervalStart, intervalEnd, currency
-    case accountID
-  }
+  let accountID: Int?
 }
 
 struct Transaction: Codable {
   let type, date: String
-  let amount, totalFees: EndOfStatementBalance
+  let amount, totalFees: Amount
   let details: TransactionDetails
   let exchangeDetails: ExchangeDetails?
-  let runningBalance: EndOfStatementBalance
+  let runningBalance: Amount
   let referenceNumber: String
 }
 
+extension Transaction: Identifiable {
+  var id: String { referenceNumber }
+}
+
 struct TransactionDetails: Codable {
-  let type, detailsDescription: String
-  let amount: EndOfStatementBalance?
+  let type: String
+  let detailsDescription: String?
+  let amount: Amount?
   let category: String?
   let merchant: Merchant?
   let senderName, senderAccount, paymentReference: String?
-  let sourceAmount, targetAmount, fee: EndOfStatementBalance?
-  let rate: Double?
-
-  enum CodingKeys: String, CodingKey {
-    case type
-    case detailsDescription
-    case amount
-    case category
-    case merchant
-    case senderName
-    case senderAccount
-    case paymentReference
-    case sourceAmount
-    case targetAmount
-    case fee
-    case rate
-  }
+  let sourceAmount, targetAmount, fee: Amount?
+  let rate: Decimal?
 }
 
 struct Merchant: Codable {
@@ -131,5 +116,5 @@ struct Merchant: Codable {
 }
 
 struct ExchangeDetails: Codable {
-  let forAmount: EndOfStatementBalance
+  let forAmount: Amount?
 }

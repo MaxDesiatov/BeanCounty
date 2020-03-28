@@ -10,7 +10,7 @@ import Foundation
 import Moya
 
 struct TransferWise: TargetType, AccessTokenAuthorizable {
-  let baseURL: URL = URL(string: "https://api.sandbox.transferwise.tech/")!
+  let baseURL: URL = URL(string: "https://api.transferwise.com/")!
   let path: String
   let method = Method.get
 

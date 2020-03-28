@@ -11,11 +11,9 @@ import Foundation
 import KeychainAccess
 import Moya
 
-private let transferWiseTokenKey = "transferWiseToken"
+typealias ResultPublisher<Output> = AnyPublisher<Result<Output, MoyaError>, Never>
 
-enum ResponseError: Error {
-  case noArrayElements
-}
+private let transferWiseTokenKey = "transferWiseToken"
 
 final class Store: ObservableObject {
   private lazy var transferWiseProvider = MoyaProvider<TransferWise>(plugins: [
@@ -25,15 +23,15 @@ final class Store: ObservableObject {
   @Published var transferWiseToken: String
 
   /// Index of a currently selected profile
-  @Published private(set) var selectedProfileIndex = 0
+  @Published private(set) var selectedProfileIndex = 1
 
   /// `nil` represents `loading` state
-  @Published private(set) var availableProfiles: Result<[Profile], Error>?
+  @Published private(set) var availableProfiles: Result<[Profile], MoyaError>?
 
   private let keychain: Keychain
   private var subscriptions = Set<AnyCancellable>()
 
-  init(availableProfiles: Result<[Profile], Error>? = nil) {
+  init(availableProfiles: Result<[Profile], MoyaError>? = nil) {
     self.availableProfiles = availableProfiles
     keychain = Keychain(service: "com.dsignal.BeanCounty")
     transferWiseToken = keychain[transferWiseTokenKey] ?? ""
@@ -54,35 +52,60 @@ final class Store: ObservableObject {
       .store(in: &subscriptions)
   }
 
-  private lazy var profiles = $transferWiseToken
-    .flatMap { _ in
-      self.transferWiseProvider.requestPublisher(
-        .profiles
-      )
-      .map([Profile].self)
-      .map(Result<[Profile], Error>.success)
-      .catch { Just(.failure($0)) }
-    }.eraseToAnyPublisher()
-
-  private(set) lazy var selectedProfile = $availableProfiles
-    .compactMap { $0 }
-    .combineLatest($selectedProfileIndex)
-    .map { profiles, index in
-      profiles.map { $0[index] }
-    }.eraseToAnyPublisher()
-
-  private(set) lazy var accounts = selectedProfile
-    .flatMap {
-      $0.publisher
-        .flatMap {
-          self.transferWiseProvider.requestPublisher(
-            .accounts(profileID: $0.id)
-          )
-          .map([Account].self)
-          .mapError { $0 as Error }
+  private lazy var profiles =
+    $transferWiseToken
+      .flatMap { _ in
+        self.transferWiseProvider.requestPublisher(
+          .profiles
+        )
+        .map([Profile].self)
+        .map(Result<[Profile], MoyaError>.success)
+        .catch {
+          Just(.failure($0))
         }
-        .map(Result<[Account], Error>.success)
-        .catch { Just(.failure($0)) }
-    }
-    .eraseToAnyPublisher()
+      }.eraseToAnyPublisher()
+
+  private(set) lazy var selectedProfile =
+    $availableProfiles
+      .compactMap { $0 }
+      .combineLatest($selectedProfileIndex)
+      .map { profiles, index in
+        profiles.map { $0[index] }
+      }.eraseToAnyPublisher()
+
+  private(set) lazy var accounts =
+    selectedProfile
+      .flatMap {
+        $0.publisher
+          .flatMap {
+            self.transferWiseProvider.requestPublisher(
+              .accounts(profileID: $0.id)
+            )
+            .map([Account].self)
+          }
+          .map(Result.success)
+          .catch { Just(.failure($0)) }
+      }
+      .eraseToAnyPublisher()
+
+  func statement(accountID: Int, currency: String) -> ResultPublisher<[Transaction]> {
+    selectedProfile
+      .flatMap {
+        $0.publisher
+          .flatMap {
+            self.transferWiseProvider.requestPublisher(.statement(
+              profileID: $0.id,
+              accountID: accountID,
+              currency: currency,
+              start: Date() - 60 * 60 * 24 * 365,
+              end: Date()
+            ))
+              .map(Statement.self)
+              .map(\.transactions)
+          }
+          .map(Result.success)
+          .catch { Just(.failure($0)) }
+      }
+      .eraseToAnyPublisher()
+  }
 }

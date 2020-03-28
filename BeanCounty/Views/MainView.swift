@@ -1,5 +1,5 @@
 //
-//  ListView.swift
+//  MainView.swift
 //  BeanCounty
 //
 //  Created by Max Desiatov on 11/12/2019.
@@ -15,8 +15,8 @@ private let dateFormatter: DateFormatter = {
   return dateFormatter
 }()
 
-struct ListView<Style: NavigationViewStyle>: View {
-  @State private var balances = [Balance]()
+struct MainView<Style: NavigationViewStyle>: View {
+  @State private var balances = [(accountID: Int, balance: Balance)]()
 
   @ObservedObject var store: Store
 
@@ -26,7 +26,7 @@ struct ListView<Style: NavigationViewStyle>: View {
 
   var body: some View {
     NavigationView {
-      AccountsList(balances: $balances)
+      AccountsList(balances: balances) { self.store.statement(accountID: $0, currency: $1) }
         .navigationBarTitle(Text(profileType))
         .navigationBarItems(
           leading: EditButton(),
@@ -45,7 +45,7 @@ struct ListView<Style: NavigationViewStyle>: View {
             Image(systemName: "gear")
           }
         )
-      DetailView()
+      Text("Select an account on the left side to view its statement")
     }
     .navigationViewStyle(style)
     .onReceive(store.selectedProfile) {
@@ -59,7 +59,8 @@ struct ListView<Style: NavigationViewStyle>: View {
     .onReceive(store.accounts) {
       switch $0 {
       case let .success(accounts):
-        self.balances = accounts.flatMap { $0.balances }
+        self.balances = accounts
+          .flatMap { account in account.balances.map { (accountID: account.id, balance: $0) } }
       case let .failure(error):
         self.profileType = error.localizedDescription
       }
@@ -67,23 +68,9 @@ struct ListView<Style: NavigationViewStyle>: View {
   }
 }
 
-struct DetailView: View {
-  var text: String?
-
-  var body: some View {
-    Group {
-      if text != nil {
-        Text(text!)
-      } else {
-        Text("Detail view content goes here")
-      }
-    }.navigationBarTitle(Text("Detail"))
-  }
-}
-
-struct ContentView_Previews: PreviewProvider {
+struct MainView_Previews: PreviewProvider {
   static var previews: some View {
-    ListView(
+    MainView(
       store: Store(availableProfiles: .success([Profile(
         id: 42,
         type: "personal",

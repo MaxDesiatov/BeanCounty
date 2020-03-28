@@ -25,9 +25,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     // Create the SwiftUI view that provides the window contents.
     #if targetEnvironment(macCatalyst)
-    let view = ListView(store: store, style: DoubleColumnNavigationViewStyle())
+    let view = MainView(store: store, style: DoubleColumnNavigationViewStyle())
     #else
-    let view = ListView(store: store, style: StackNavigationViewStyle())
+    let view = MainView(store: store, style: StackNavigationViewStyle())
     #endif
 
     // Use a UIHostingController as window root view controller.
