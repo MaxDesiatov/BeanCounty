@@ -15,7 +15,7 @@ struct AccountView: View {
 
   let onLoad: (_ accountID: Int, _ currency: String) -> ResultPublisher<[Transaction]>
 
-  @State private var transactions: [Transaction]?
+  @State var transactions: [Transaction]?
 
   @State private var text: String = "loading..."
 
@@ -23,8 +23,11 @@ struct AccountView: View {
     Group {
       if self.transactions != nil {
         List {
-          ForEach(transactions!) { item in
-            Text("\(item.amount.value as NSNumber)")
+          ForEach(transactions!) {
+            Text("""
+            \($0.amount.description) \($0.date), \
+            fee \($0.totalFees.description), balance \($0.runningBalance.description)
+            """)
           }
         }
       } else {
@@ -51,7 +54,33 @@ struct AccountView_Previews: PreviewProvider {
         balanceType: "",
         currency: "EUR",
         amount: Amount(value: 0, currency: "EUR")
-      )
-    ) { _, _ in Just(.success([])).eraseToAnyPublisher() }
+      ),
+      onLoad: { _, _ in Just(.success([])).eraseToAnyPublisher() },
+      transactions: [
+        Transaction(
+          type: "blah",
+          date: "date",
+          amount: Amount(value: 10, currency: "EUR"),
+          totalFees: Amount(value: 2, currency: "EUR"),
+          details: TransactionDetails(
+            type: "type",
+            detailsDescription: "detailsDescription",
+            amount: nil,
+            category: nil,
+            merchant: nil,
+            senderName: nil,
+            senderAccount: nil,
+            paymentReference: nil,
+            sourceAmount: nil,
+            targetAmount: nil,
+            fee: nil,
+            rate: 4.25
+          ),
+          exchangeDetails: nil,
+          runningBalance: Amount(value: 345, currency: "EUR"),
+          referenceNumber: "referenceNumber"
+        ),
+      ]
+    )
   }
 }

@@ -51,6 +51,17 @@ struct Amount: Codable {
   let currency: String
 }
 
+private func format(_ value: Decimal, currencyCode: String) -> String? {
+  let result = NumberFormatter()
+  result.numberStyle = .currency
+  result.currencyCode = currencyCode
+  return result.string(from: value as NSNumber)
+}
+
+extension Amount: CustomStringConvertible {
+  var description: String { format(value, currencyCode: currency) ?? "" }
+}
+
 struct Statement: Codable {
   let accountHolder: AccountHolder
   let issuer: Issuer
