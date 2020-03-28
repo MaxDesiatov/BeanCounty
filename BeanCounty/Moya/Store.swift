@@ -27,6 +27,7 @@ final class Store: ObservableObject {
   /// Index of a currently selected profile
   @Published private(set) var selectedProfileIndex = 0
 
+  /// `nil` represents `loading` state
   @Published private(set) var availableProfiles: Result<[Profile], Error>?
 
   private let keychain: Keychain
@@ -47,12 +48,13 @@ final class Store: ObservableObject {
       .store(in: &subscriptions)
 
     profiles
+      // convert from non-optional to optional
       .map { $0 }
       .assign(to: \.availableProfiles, on: self)
       .store(in: &subscriptions)
   }
 
-  private(set) lazy var profiles = $transferWiseToken
+  private lazy var profiles = $transferWiseToken
     .flatMap { _ in
       self.transferWiseProvider.requestPublisher(
         .profiles
@@ -69,21 +71,18 @@ final class Store: ObservableObject {
       profiles.map { $0[index] }
     }.eraseToAnyPublisher()
 
-  private(set) lazy var accounts = $transferWiseToken
-    .setFailureType(to: Error.self)
-    .combineLatest(
-      // unwrap `Result` type to make processing easier
-      selectedProfile.tryMap { try $0.get() }
-    )
-    .flatMap { _, profile in
-      self.transferWiseProvider.requestPublisher(
-        .accounts(profileID: profile.id)
-      )
-      .map([Account].self)
-      .mapError { $0 as Error }
+  private(set) lazy var accounts = selectedProfile
+    .flatMap {
+      $0.publisher
+        .flatMap {
+          self.transferWiseProvider.requestPublisher(
+            .accounts(profileID: $0.id)
+          )
+          .map([Account].self)
+          .mapError { $0 as Error }
+        }
+        .map(Result<[Account], Error>.success)
+        .catch { Just(.failure($0)) }
     }
-    .map(Result<[Account], Error>.success)
-    // FIXME: `catch` outside of `flatMap` means that this chain breaks on any error
-    .catch { Just(.failure($0)) }
     .eraseToAnyPublisher()
 }
