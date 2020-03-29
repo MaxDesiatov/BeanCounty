@@ -9,16 +9,27 @@
 import SwiftUI
 
 struct SettingsView: View {
-  @ObservedObject private(set) var store: Store
+  @ObservedObject private(set) var transferWise: TransferWiseStore
+  @ObservedObject private(set) var freeAgent: FreeAgentStore
 
   var body: some View {
     Form {
-      Section(header: Text("Authentication")) {
+      Section(header: Text("TransferWise Authentication")) {
         SecureField(
           "Token",
-          text: $store.transferWiseToken
+          text: $transferWise.token
         )
-        Text("Current token is \(store.transferWiseToken.isEmpty ? "in" : "")valid")
+        Text("Current token is \(transferWise.token.isEmpty ? "in" : "")valid")
+      }
+      Section(header: Text("FreeAgent Authentication")) {
+        SecureField(
+          "Consumer Key",
+          text: $freeAgent.consumerKey
+        )
+        SecureField(
+          "Consumer Secret",
+          text: $freeAgent.consumerSecret
+        )
       }
     }
   }
@@ -26,6 +37,8 @@ struct SettingsView: View {
 
 struct SettingsView_Previews: PreviewProvider {
   static var previews: some View {
-    SettingsView(store: Store())
+    SettingsView(
+      transferWise: TransferWiseStore(), freeAgent: FreeAgentStore()
+    )
   }
 }

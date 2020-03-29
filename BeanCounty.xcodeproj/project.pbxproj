@@ -11,13 +11,14 @@
 		D1137CA823B4ECF100CC036C /* MoyaPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1137CA723B4ECF100CC036C /* MoyaPublisher.swift */; };
 		D1137CAB23B4ED3E00CC036C /* MoyaProvider+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1137CAA23B4ED3E00CC036C /* MoyaProvider+Combine.swift */; };
 		D1137CAD23B4ED8500CC036C /* AnyPublisher+Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1137CAC23B4ED8500CC036C /* AnyPublisher+Response.swift */; };
-		D1137CAF23B4EFAB00CC036C /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1137CAE23B4EFAB00CC036C /* Store.swift */; };
+		D1137CAF23B4EFAB00CC036C /* TransferWiseStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1137CAE23B4EFAB00CC036C /* TransferWiseStore.swift */; };
 		D1137CB123B4F5C700CC036C /* TransferWise.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1137CB023B4F5C700CC036C /* TransferWise.swift */; };
 		D1137CB423B4FC8C00CC036C /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = D1137CB323B4FC8C00CC036C /* KeychainAccess */; };
 		D1137CB723B5031300CC036C /* SettingsSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1137CB623B5031300CC036C /* SettingsSceneDelegate.swift */; };
 		D1137CB923B5053000CC036C /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1137CB823B5053000CC036C /* Activity.swift */; };
 		D1137CBC23B5067D00CC036C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1137CBB23B5067D00CC036C /* SettingsView.swift */; };
 		D137E475240AF6FD0071B8A6 /* AccountsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D137E474240AF6FD0071B8A6 /* AccountsList.swift */; };
+		D14B6AFF243138800079DC05 /* OAuthSwiftAlamofire in Frameworks */ = {isa = PBXBuildFile; productRef = D14B6AFE243138800079DC05 /* OAuthSwiftAlamofire */; };
 		D1A9C7EF23A1793E00E7372D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A9C7EE23A1793E00E7372D /* AppDelegate.swift */; };
 		D1A9C7F123A1793E00E7372D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A9C7F023A1793E00E7372D /* SceneDelegate.swift */; };
 		D1A9C7F323A1793E00E7372D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A9C7F223A1793E00E7372D /* MainView.swift */; };
@@ -27,6 +28,8 @@
 		D1A9C80623A1793F00E7372D /* BeanCountyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A9C80523A1793F00E7372D /* BeanCountyTests.swift */; };
 		D1A9C81123A1793F00E7372D /* BeanCountyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A9C81023A1793F00E7372D /* BeanCountyUITests.swift */; };
 		D1B0CE51242FE12500D5FA1C /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B0CE50242FE12500D5FA1C /* AccountView.swift */; };
+		D1C505D424311BA700A1A3BB /* OAuthSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D1C505D324311BA700A1A3BB /* OAuthSwift */; };
+		D1C505D82431320000A1A3BB /* FreeAgentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C505D72431320000A1A3BB /* FreeAgentStore.swift */; };
 		D1F24A0A23C2737900AD5592 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F24A0923C2737900AD5592 /* Model.swift */; };
 /* End PBXBuildFile section */
 
@@ -51,7 +54,7 @@
 		D1137CA723B4ECF100CC036C /* MoyaPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaPublisher.swift; sourceTree = "<group>"; };
 		D1137CAA23B4ED3E00CC036C /* MoyaProvider+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoyaProvider+Combine.swift"; sourceTree = "<group>"; };
 		D1137CAC23B4ED8500CC036C /* AnyPublisher+Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyPublisher+Response.swift"; sourceTree = "<group>"; };
-		D1137CAE23B4EFAB00CC036C /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		D1137CAE23B4EFAB00CC036C /* TransferWiseStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferWiseStore.swift; sourceTree = "<group>"; };
 		D1137CB023B4F5C700CC036C /* TransferWise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferWise.swift; sourceTree = "<group>"; };
 		D1137CB623B5031300CC036C /* SettingsSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSceneDelegate.swift; sourceTree = "<group>"; };
 		D1137CB823B5053000CC036C /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
@@ -73,6 +76,7 @@
 		D1A9C81223A1793F00E7372D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D1A9C81E23A1795300E7372D /* BeanCounty.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BeanCounty.entitlements; sourceTree = "<group>"; };
 		D1B0CE50242FE12500D5FA1C /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		D1C505D72431320000A1A3BB /* FreeAgentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeAgentStore.swift; sourceTree = "<group>"; };
 		D1F24A0923C2737900AD5592 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,7 +86,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D1137CB423B4FC8C00CC036C /* KeychainAccess in Frameworks */,
+				D14B6AFF243138800079DC05 /* OAuthSwiftAlamofire in Frameworks */,
 				D1137CA623B4E9AC00CC036C /* Moya in Frameworks */,
+				D1C505D424311BA700A1A3BB /* OAuthSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,8 +115,8 @@
 				D1137CA723B4ECF100CC036C /* MoyaPublisher.swift */,
 				D1137CAA23B4ED3E00CC036C /* MoyaProvider+Combine.swift */,
 				D1137CAC23B4ED8500CC036C /* AnyPublisher+Response.swift */,
-				D1137CAE23B4EFAB00CC036C /* Store.swift */,
-				D1137CB023B4F5C700CC036C /* TransferWise.swift */,
+				D1C505D6243131F000A1A3BB /* FreeAgent */,
+				D1C505D5243131E900A1A3BB /* TransferWise */,
 			);
 			path = Moya;
 			sourceTree = "<group>";
@@ -201,6 +207,23 @@
 			path = BeanCountyUITests;
 			sourceTree = "<group>";
 		};
+		D1C505D5243131E900A1A3BB /* TransferWise */ = {
+			isa = PBXGroup;
+			children = (
+				D1137CAE23B4EFAB00CC036C /* TransferWiseStore.swift */,
+				D1137CB023B4F5C700CC036C /* TransferWise.swift */,
+			);
+			path = TransferWise;
+			sourceTree = "<group>";
+		};
+		D1C505D6243131F000A1A3BB /* FreeAgent */ = {
+			isa = PBXGroup;
+			children = (
+				D1C505D72431320000A1A3BB /* FreeAgentStore.swift */,
+			);
+			path = FreeAgent;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -221,6 +244,8 @@
 			packageProductDependencies = (
 				D1137CA523B4E9AC00CC036C /* Moya */,
 				D1137CB323B4FC8C00CC036C /* KeychainAccess */,
+				D1C505D324311BA700A1A3BB /* OAuthSwift */,
+				D14B6AFE243138800079DC05 /* OAuthSwiftAlamofire */,
 			);
 			productName = BeanCounty;
 			productReference = D1A9C7EB23A1793E00E7372D /* BeanCounty.app */;
@@ -297,6 +322,8 @@
 			packageReferences = (
 				D1137CA423B4E9AC00CC036C /* XCRemoteSwiftPackageReference "Moya" */,
 				D1137CB223B4FC8C00CC036C /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+				D1C505D224311BA700A1A3BB /* XCRemoteSwiftPackageReference "OAuthSwift" */,
+				D14B6AFD243138800079DC05 /* XCRemoteSwiftPackageReference "OAuthSwiftAlamofire" */,
 			);
 			productRefGroup = D1A9C7EC23A1793E00E7372D /* Products */;
 			projectDirPath = "";
@@ -361,7 +388,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D1137CAF23B4EFAB00CC036C /* Store.swift in Sources */,
+				D1137CAF23B4EFAB00CC036C /* TransferWiseStore.swift in Sources */,
 				D137E475240AF6FD0071B8A6 /* AccountsList.swift in Sources */,
 				D1137CAB23B4ED3E00CC036C /* MoyaProvider+Combine.swift in Sources */,
 				D1137CB123B4F5C700CC036C /* TransferWise.swift in Sources */,
@@ -371,6 +398,7 @@
 				D1A9C7EF23A1793E00E7372D /* AppDelegate.swift in Sources */,
 				D1137CB923B5053000CC036C /* Activity.swift in Sources */,
 				D1137CAD23B4ED8500CC036C /* AnyPublisher+Response.swift in Sources */,
+				D1C505D82431320000A1A3BB /* FreeAgentStore.swift in Sources */,
 				D1A9C7F123A1793E00E7372D /* SceneDelegate.swift in Sources */,
 				D1137CA823B4ECF100CC036C /* MoyaPublisher.swift in Sources */,
 				D1A9C7F323A1793E00E7372D /* MainView.swift in Sources */,
@@ -723,6 +751,22 @@
 				minimumVersion = 4.1.0;
 			};
 		};
+		D14B6AFD243138800079DC05 /* XCRemoteSwiftPackageReference "OAuthSwiftAlamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MaxDesiatov/OAuthSwiftAlamofire.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		D1C505D224311BA700A1A3BB /* XCRemoteSwiftPackageReference "OAuthSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OAuthSwift/OAuthSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -735,6 +779,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D1137CB223B4FC8C00CC036C /* XCRemoteSwiftPackageReference "KeychainAccess" */;
 			productName = KeychainAccess;
+		};
+		D14B6AFE243138800079DC05 /* OAuthSwiftAlamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D14B6AFD243138800079DC05 /* XCRemoteSwiftPackageReference "OAuthSwiftAlamofire" */;
+			productName = OAuthSwiftAlamofire;
+		};
+		D1C505D324311BA700A1A3BB /* OAuthSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D1C505D224311BA700A1A3BB /* XCRemoteSwiftPackageReference "OAuthSwift" */;
+			productName = OAuthSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

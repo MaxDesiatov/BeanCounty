@@ -1,5 +1,5 @@
 //
-//  Store.swift
+//  TransferWiseStore.swift
 //  BeanCounty
 //
 //  Created by Max Desiatov on 26/12/2019.
@@ -15,12 +15,12 @@ typealias ResultPublisher<Output> = AnyPublisher<Result<Output, MoyaError>, Neve
 
 private let transferWiseTokenKey = "transferWiseToken"
 
-final class Store: ObservableObject {
+final class TransferWiseStore: ObservableObject {
   private lazy var transferWiseProvider = MoyaProvider<TransferWise>(plugins: [
-    AccessTokenPlugin { [weak self] _ in self?.transferWiseToken ?? "" },
+    AccessTokenPlugin { [weak self] _ in self?.token ?? "" },
   ])
 
-  @Published var transferWiseToken: String
+  @Published var token: String
 
   /// Index of a currently selected profile
   @Published private(set) var selectedProfileIndex = 1
@@ -33,10 +33,10 @@ final class Store: ObservableObject {
 
   init(availableProfiles: Result<[Profile], MoyaError>? = nil) {
     self.availableProfiles = availableProfiles
-    keychain = Keychain(service: "com.dsignal.BeanCounty")
-    transferWiseToken = keychain[transferWiseTokenKey] ?? ""
+    keychain = Keychain(service: keychainService)
+    token = keychain[transferWiseTokenKey] ?? ""
 
-    $transferWiseToken
+    $token
       // stop rewriting the token just after it's loaded here with `dropFirst`
       .dropFirst()
       // convert from non-optional to optional
@@ -53,7 +53,7 @@ final class Store: ObservableObject {
   }
 
   private lazy var profiles =
-    $transferWiseToken
+    $token
       .flatMap { _ in
         self.transferWiseProvider.requestPublisher(
           .profiles

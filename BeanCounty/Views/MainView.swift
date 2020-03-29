@@ -18,7 +18,7 @@ private let dateFormatter: DateFormatter = {
 struct MainView<Style: NavigationViewStyle>: View {
   @State private var balances = [(accountID: Int, balance: Balance)]()
 
-  @ObservedObject var store: Store
+  @ObservedObject var store: TransferWiseStore
 
   @State var profileType: String = "loading..."
 
@@ -71,7 +71,7 @@ struct MainView<Style: NavigationViewStyle>: View {
 struct MainView_Previews: PreviewProvider {
   static var previews: some View {
     MainView(
-      store: Store(availableProfiles: .success([Profile(
+      store: TransferWiseStore(availableProfiles: .success([Profile(
         id: 42,
         type: "personal",
         details: Details(

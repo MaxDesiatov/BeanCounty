@@ -21,7 +21,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
     // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
-    guard let store = session.userInfo?[storeKey] as? Store else { return }
+    guard
+      let store = appDelegate?.transferWise
+    else { return }
 
     // Create the SwiftUI view that provides the window contents.
     #if targetEnvironment(macCatalyst)

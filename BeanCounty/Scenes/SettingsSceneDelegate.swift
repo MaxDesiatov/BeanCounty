@@ -17,9 +17,12 @@ final class SettingsSceneDelegate: NSObject, UIWindowSceneDelegate {
     willConnectTo session: UISceneSession,
     options connectionOptions: UIScene.ConnectionOptions
   ) {
-    guard let store = session.userInfo?[storeKey] as? Store else { return }
+    guard
+      let transferWise = appDelegate?.transferWise,
+      let freeAgent = appDelegate?.freeAgent
+    else { return }
 
-    let view = SettingsView(store: store)
+    let view = SettingsView(transferWise: transferWise, freeAgent: freeAgent)
 
     // Use a UIHostingController as window root view controller.
     if let windowScene = scene as? UIWindowScene {

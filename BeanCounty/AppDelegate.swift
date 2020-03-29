@@ -8,11 +8,19 @@
 
 import UIKit
 
-let storeKey = "store"
+enum StoreKey: String {
+  case transferWise
+  case freeAgent
+}
+
+let keychainService = "com.dsignal.BeanCounty"
+
+let appDelegate = UIApplication.shared.delegate as? AppDelegate
 
 @UIApplicationMain
 final class AppDelegate: UIResponder, UIApplicationDelegate {
-  private let store = Store()
+  let transferWise = TransferWiseStore()
+  let freeAgent = FreeAgentStore()
 
   func application(
     _ application: UIApplication,
@@ -35,7 +43,8 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     let name = options.userActivities.contains { $0.activityType == Activity.settings.type } ?
       "Settings" : "Default Configuration"
 
-    connectingSceneSession.userInfo?[storeKey] = store
+    connectingSceneSession.userInfo?[StoreKey.transferWise.rawValue] = transferWise
+    connectingSceneSession.userInfo?[StoreKey.freeAgent.rawValue] = freeAgent
 
     return UISceneConfiguration(name: name, sessionRole: connectingSceneSession.role)
   }
