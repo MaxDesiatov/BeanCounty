@@ -23,15 +23,23 @@ struct AccountView: View {
     Group {
       if self.transactions != nil {
         List {
-          ForEach(transactions!) {
-            Text("""
-            \($0.amount.description) \($0.date), \
-            fee \($0.totalFees.description), balance \($0.runningBalance.description)
-            """)
+          ForEach(transactions!) { item in
+            HStack {
+              VStack(alignment: .leading, spacing: 10) {
+                Text("\(item.date.value, formatter: Self.dateFormater)").foregroundColor(.secondary)
+                Text(item.amount.description)
+                Text("fee \(item.totalFees.description)").foregroundColor(.red)
+              }
+              Spacer()
+              VStack(alignment: .trailing, spacing: 10) {
+                Text("balance")
+                Text("\(item.runningBalance.description)").foregroundColor(.green)
+              }
+            }
           }
         }
       } else {
-        Text("loading...")
+        Text(text)
       }
     }
     .navigationBarTitle(Text("\(balance.amount.value as NSNumber) \(balance.currency)"))
@@ -44,6 +52,12 @@ struct AccountView: View {
       }
     }
   }
+
+  private static let dateFormater: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .long
+    return formatter
+  }()
 }
 
 struct AccountView_Previews: PreviewProvider {
@@ -59,7 +73,7 @@ struct AccountView_Previews: PreviewProvider {
       transactions: [
         Transaction(
           type: "blah",
-          date: "date",
+          date: ISODate(value: Date()),
           amount: Amount(value: 10, currency: "EUR"),
           totalFees: Amount(value: 2, currency: "EUR"),
           details: TransactionDetails(

@@ -97,7 +97,8 @@ struct Query: Codable {
 }
 
 struct Transaction: Codable {
-  let type, date: String
+  let type: String
+  let date: ISODate
   let amount, totalFees: Amount
   let details: TransactionDetails
   let exchangeDetails: ExchangeDetails?
@@ -107,6 +108,27 @@ struct Transaction: Codable {
 
 extension Transaction: Identifiable {
   var id: String { referenceNumber }
+}
+
+struct ISODate: Codable {
+  let value: Date
+
+  init(value: Date) {
+    self.value = value
+  }
+
+  init(from decoder: Decoder) throws {
+    let container = try decoder.singleValueContainer()
+    let string = try container.decode(String.self)
+    let dateFormatter = ISO8601DateFormatter()
+    dateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+
+    guard let date = dateFormatter.date(from: string) else {
+      throw DecodingError.dataCorruptedError(in: container, debugDescription: "can't decode date")
+    }
+
+    value = date
+  }
 }
 
 struct TransactionDetails: Codable {
