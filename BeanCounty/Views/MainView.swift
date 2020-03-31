@@ -27,9 +27,8 @@ struct MainView<Style: NavigationViewStyle>: View {
   var body: some View {
     NavigationView {
       AccountsList(balances: balances) { self.store.statement(accountID: $0, currency: $1) }
-        .navigationBarTitle(Text(profileType))
+        .navigationBarTitle(Text(profileType), displayMode: .inline)
         .navigationBarItems(
-          leading: EditButton(),
           trailing: Button(
             action: {
               UIApplication

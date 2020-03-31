@@ -23,7 +23,7 @@ final class TransferWiseStore: ObservableObject {
   @Published var token: String
 
   /// Index of a currently selected profile
-  @Published private(set) var selectedProfileIndex = 1
+  @Published var selectedProfileIndex = 1
 
   /// `nil` represents `loading` state
   @Published private(set) var availableProfiles: Result<[Profile], MoyaError>?

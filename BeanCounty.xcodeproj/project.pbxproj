@@ -30,6 +30,7 @@
 		D1B0CE51242FE12500D5FA1C /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B0CE50242FE12500D5FA1C /* AccountView.swift */; };
 		D1C505D424311BA700A1A3BB /* OAuthSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D1C505D324311BA700A1A3BB /* OAuthSwift */; };
 		D1C505D82431320000A1A3BB /* FreeAgentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C505D72431320000A1A3BB /* FreeAgentStore.swift */; };
+		D1D4D5C52433D3C800E3892D /* FreeAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D4D5C42433D3C800E3892D /* FreeAgent.swift */; };
 		D1F24A0A23C2737900AD5592 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F24A0923C2737900AD5592 /* Model.swift */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +78,7 @@
 		D1A9C81E23A1795300E7372D /* BeanCounty.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BeanCounty.entitlements; sourceTree = "<group>"; };
 		D1B0CE50242FE12500D5FA1C /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		D1C505D72431320000A1A3BB /* FreeAgentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeAgentStore.swift; sourceTree = "<group>"; };
+		D1D4D5C42433D3C800E3892D /* FreeAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeAgent.swift; sourceTree = "<group>"; };
 		D1F24A0923C2737900AD5592 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -220,6 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				D1C505D72431320000A1A3BB /* FreeAgentStore.swift */,
+				D1D4D5C42433D3C800E3892D /* FreeAgent.swift */,
 			);
 			path = FreeAgent;
 			sourceTree = "<group>";
@@ -399,6 +402,7 @@
 				D1137CB923B5053000CC036C /* Activity.swift in Sources */,
 				D1137CAD23B4ED8500CC036C /* AnyPublisher+Response.swift in Sources */,
 				D1C505D82431320000A1A3BB /* FreeAgentStore.swift in Sources */,
+				D1D4D5C52433D3C800E3892D /* FreeAgent.swift in Sources */,
 				D1A9C7F123A1793E00E7372D /* SceneDelegate.swift in Sources */,
 				D1137CA823B4ECF100CC036C /* MoyaPublisher.swift in Sources */,
 				D1A9C7F323A1793E00E7372D /* MainView.swift in Sources */,
