@@ -23,4 +23,14 @@ struct FreeAgent: TargetType {
 
 extension FreeAgent {
   static let bankAccounts = FreeAgent(path: "bank_accounts", task: .requestPlain)
+
+  static func transactions(_ bankAccount: FABankAccount) -> FreeAgent {
+    FreeAgent(
+      path: "bank_transactions",
+      task: .requestParameters(
+        parameters: ["bank_account": bankAccount.url],
+        encoding: URLEncoding()
+      )
+    )
+  }
 }

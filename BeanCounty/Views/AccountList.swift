@@ -1,5 +1,5 @@
 //
-//  AccountsList.swift
+//  AccountList.swift
 //  BeanCounty
 //
 //  Created by Max Desiatov on 29/02/2020.
@@ -9,10 +9,10 @@
 import Combine
 import SwiftUI
 
-struct AccountsList: View {
+struct AccountList: View {
   let balances: [(accountID: Int, balance: Balance)]
 
-  let onSelect: (_ accountID: Int, _ currency: String) -> ResultPublisher<[Transaction]>
+  let onSelect: (_ accountID: Int, _ currency: String) -> ResultPublisher<[TWTransaction]>
 
   var body: some View {
     List {
@@ -33,7 +33,7 @@ struct AccountsList: View {
 
 struct AccountsList_Previews: PreviewProvider {
   static var previews: some View {
-    AccountsList(balances: [
+    AccountList(balances: [
       (0, Balance(
         balanceType: "",
         currency: "EUR",

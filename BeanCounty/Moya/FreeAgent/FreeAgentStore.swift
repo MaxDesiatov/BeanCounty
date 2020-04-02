@@ -30,7 +30,7 @@ final class FreeAgentStore: ObservableObject {
   private var provider: MoyaProvider<FreeAgent>?
 
   /// `nil` represents `loading` state
-  @Published private(set) var bankAccounts: MoyaResult<[BankAccount]>?
+  @Published private(set) var bankAccounts: MoyaResult<[FABankAccount]>?
 
   /// Index of a currently selected bank account
   @Published var selectedBankAccountIndex = 3
@@ -41,26 +41,31 @@ final class FreeAgentStore: ObservableObject {
     consumerSecret = keychain[consumerSecretKey] ?? ""
 
     $consumerKey
-      // stop rewriting the key just after it's loaded here with `dropFirst`
-      .dropFirst()
-      // convert from non-optional to optional
-      .map { $0 }
-      // store updated token in the keychain
-      .assign(to: \.[consumerKeyKey], on: keychain)
+      .write(as: consumerKeyKey, to: keychain)
       .store(in: &subscriptions)
 
     $consumerSecret
-      // stop rewriting the key just after it's loaded here with `dropFirst`
-      .dropFirst()
-      // convert from non-optional to optional
-      .map { $0 }
-      // store updated token in the keychain
-      .assign(to: \.[consumerSecretKey], on: keychain)
+      .write(as: consumerSecretKey, to: keychain)
       .store(in: &subscriptions)
+
+    $bankAccounts
+      .combineLatest($selectedBankAccountIndex)
+      .compactMap { accountsResult, index in try? accountsResult?.map { $0[index] }.get() }
+      .flatMap { [weak self] bankAccount -> AnyPublisher<String, Never> in
+        guard let provider = self?.provider else { return Empty().eraseToAnyPublisher() }
+
+        return provider.requestPublisher(.transactions(bankAccount))
+          .mapString()
+          .catch { Just($0.localizedDescription) }
+          .eraseToAnyPublisher()
+      }.sink {
+        print($0)
+      }.store(in: &subscriptions)
 
     let decoder = JSONDecoder()
 
     guard
+      !consumerKey.isEmpty && !consumerSecret.isEmpty,
       let encodedCredential = keychain[credentialKey],
       let data = encodedCredential.data(using: .utf8),
       let credential = try? decoder.decode(OAuthSwiftCredential.self, from: data)
@@ -89,7 +94,7 @@ final class FreeAgentStore: ObservableObject {
     isAuthenticated = true
 
     provider?.requestPublisher(.bankAccounts)
-      .map(FreeAgentBankAccounts.self)
+      .map(FABankAccounts.self)
       .map(\.bankAccounts)
       .map(Result.success)
       .catch { Just(.failure($0)) }
@@ -105,30 +110,29 @@ final class FreeAgentStore: ObservableObject {
 
     setupOAuth()
 
-    _ = oauth?.authorize(
-      withCallbackURL: "bean-county://oauth-callback/freeagent",
-      scope: "",
-      state: "FreeAgent"
-    ) { result in
-      switch result {
-      case let .success((credential, _, _)):
-        let encoder = JSONEncoder()
-
-        guard
-          let data = try? encoder.encode(credential),
-          let string = String(data: data, encoding: .utf8)
-        else { fatalError() }
-
-        self.keychain[credentialKey] = string
-
-        self.setupProvider()
-      case let .failure(error):
-        fatalError(error.localizedDescription)
-      }
-    }
+    oauth?.authorize(with: "bean-county://oauth-callback/freeagent")
+      .encode(encoder: JSONEncoder())
+      .compactMap { String(data: $0, encoding: .utf8) }
+      // FIXME: error handling
+      .assertNoFailure()
+      .handleEvents(receiveOutput: { [weak self] _ in self?.setupProvider() })
+      .assign(to: \.[credentialKey], on: keychain)
+      .store(in: &subscriptions)
   }
 
   func signOut() {
+    bankAccounts = nil
+    keychain[credentialKey] = nil
     isAuthenticated = false
+  }
+}
+
+extension OAuth2Swift {
+  func authorize(with callbackURL: String) -> Future<OAuthSwiftCredential, OAuthSwiftError> {
+    Future { promise in
+      self.authorize(withCallbackURL: callbackURL, scope: "", state: "FreeAgent") {
+        promise($0.map { $0.0 })
+      }
+    }
   }
 }

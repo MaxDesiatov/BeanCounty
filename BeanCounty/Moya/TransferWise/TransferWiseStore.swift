@@ -37,12 +37,7 @@ final class TransferWiseStore: ObservableObject {
     token = keychain[transferWiseTokenKey] ?? ""
 
     $token
-      // stop rewriting the token just after it's loaded here with `dropFirst`
-      .dropFirst()
-      // convert from non-optional to optional
-      .map { $0 }
-      // store updated token in the keychain
-      .assign(to: \.[transferWiseTokenKey], on: keychain)
+      .write(as: transferWiseTokenKey, to: keychain)
       .store(in: &subscriptions)
 
     profiles
@@ -88,7 +83,7 @@ final class TransferWiseStore: ObservableObject {
       }
       .eraseToAnyPublisher()
 
-  func statement(accountID: Int, currency: String) -> ResultPublisher<[Transaction]> {
+  func statement(accountID: Int, currency: String) -> ResultPublisher<[TWTransaction]> {
     selectedProfile
       .flatMap {
         $0.publisher

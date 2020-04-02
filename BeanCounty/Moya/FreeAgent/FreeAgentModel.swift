@@ -8,15 +8,15 @@
 
 import Foundation
 
-struct FreeAgentBankAccounts: Codable {
-  let bankAccounts: [BankAccount]
+struct FABankAccounts: Codable {
+  let bankAccounts: [FABankAccount]
 
   enum CodingKeys: String, CodingKey {
     case bankAccounts = "bank_accounts"
   }
 }
 
-struct BankAccount: Codable {
+struct FABankAccount: Codable {
   let url, openingBalance: String
   let bankName: String?
   let type, name: String
@@ -51,4 +51,128 @@ struct BankAccount: Codable {
     case createdAt = "created_at"
     case email
   }
+}
+
+struct FATransactions: Codable {
+  let bankTransactions: [FATransaction]
+
+  enum CodingKeys: String, CodingKey {
+    case bankTransactions = "bank_transactions"
+  }
+}
+
+struct FATransaction: Codable {
+  let url: URL
+  let amount: Decimal
+  let bankAccount: URL
+  let datedOn, description, fullDescription, uploadedAt: String
+  let unexplainedAmount: Decimal
+  let isManual: Bool
+  let createdAt, updatedAt: String
+  let matchingTransactionsCount: Int
+  let bankTransactionExplanations: [BankTransactionExplanation]
+
+  enum CodingKeys: String, CodingKey {
+    case url, amount
+    case bankAccount = "bank_account"
+    case datedOn = "dated_on"
+    case description
+    case fullDescription = "full_description"
+    case uploadedAt = "uploaded_at"
+    case unexplainedAmount = "unexplained_amount"
+    case isManual = "is_manual"
+    case createdAt = "created_at"
+    case updatedAt = "updated_at"
+    case matchingTransactionsCount = "matching_transactions_count"
+    case bankTransactionExplanations = "bank_transaction_explanations"
+  }
+}
+
+struct BankTransactionExplanation: Codable {
+  let bankAccount: URL
+  let category: Category
+  let datedOn: String
+  let description: String
+  let transactionDescription, grossValue: String
+  let foreignCurrencyValue: Decimal
+  let transferValue: String
+  let type: FATransactionType
+  let isMoneyIn, isMoneyOut, isMoneyPaidToUser: Bool
+  let linkedTransferExplanation: String?
+  let linkedTransferAccount: String?
+  let url, bankTransaction, updatedAt, detail: String
+  let isLocked: Bool
+  let lockedAttributes: [LockedAttribute]?
+  let markedForReview, hasPendingOperation: Bool
+  let salesTaxStatus, salesTaxRate, salesTaxValue: String?
+  let attachment: Attachment?
+
+  enum CodingKeys: String, CodingKey {
+    case bankAccount = "bank_account"
+    case category
+    case datedOn = "dated_on"
+    case description
+    case transactionDescription = "transaction_description"
+    case grossValue = "gross_value"
+    case foreignCurrencyValue = "foreign_currency_value"
+    case transferValue = "transfer_value"
+    case type
+    case isMoneyIn = "is_money_in"
+    case isMoneyOut = "is_money_out"
+    case isMoneyPaidToUser = "is_money_paid_to_user"
+    case linkedTransferExplanation = "linked_transfer_explanation"
+    case linkedTransferAccount = "linked_transfer_account"
+    case url
+    case bankTransaction = "bank_transaction"
+    case updatedAt = "updated_at"
+    case detail
+    case isLocked = "is_locked"
+    case lockedAttributes = "locked_attributes"
+    case markedForReview = "marked_for_review"
+    case hasPendingOperation = "has_pending_operation"
+    case salesTaxStatus = "sales_tax_status"
+    case salesTaxRate = "sales_tax_rate"
+    case salesTaxValue = "sales_tax_value"
+    case attachment
+  }
+}
+
+struct Attachment: Codable {
+  let url, contentSrc, contentSrcMedium, contentSrcSmall: URL
+  let expiresAt: String
+  let contentType: ContentType
+  let fileName: String
+  let fileSize: Int
+
+  enum CodingKeys: String, CodingKey {
+    case url
+    case contentSrc = "content_src"
+    case contentSrcMedium = "content_src_medium"
+    case contentSrcSmall = "content_src_small"
+    case expiresAt = "expires_at"
+    case contentType = "content_type"
+    case fileName = "file_name"
+    case fileSize = "file_size"
+  }
+}
+
+enum ContentType: String, Codable {
+  case applicationPDF = "application/pdf"
+}
+
+enum Category: String, Codable {
+  case httpsAPIFreeagentCOMV2Categories363 = "https://api.freeagent.com/v2/categories/363"
+  case httpsAPIFreeagentCOMV2Categories761 = "https://api.freeagent.com/v2/categories/761"
+}
+
+enum LockedAttribute: String, Codable {
+  case linkedTransferAccount = "linked_transfer_account"
+  case transferValue = "transfer_value"
+  case type
+}
+
+enum FATransactionType: String, Codable {
+  case payment = "Payment"
+  case transferFromAnotherAccount = "Transfer from Another Account"
+  case transferToAnotherAccount = "Transfer to Another Account"
 }

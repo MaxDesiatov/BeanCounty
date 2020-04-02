@@ -12,7 +12,7 @@ struct SettingsView: View {
   @ObservedObject private(set) var transferWise: TransferWiseStore
   @ObservedObject private(set) var freeAgent: FreeAgentStore
 
-  var bankAccounts: [BankAccount]? {
+  var bankAccounts: [FABankAccount]? {
     try? freeAgent.bankAccounts?.get()
   }
 

@@ -65,7 +65,7 @@ extension Amount: CustomStringConvertible {
 struct Statement: Codable {
   let accountHolder: AccountHolder
   let issuer: Issuer
-  let transactions: [Transaction]
+  let transactions: [TWTransaction]
   let endOfStatementBalance: Amount
   let query: Query
 }
@@ -96,7 +96,7 @@ struct Query: Codable {
   let accountID: Int?
 }
 
-struct Transaction: Codable {
+struct TWTransaction: Codable {
   let type: String
   let date: ISODate
   let amount, totalFees: Amount
@@ -106,7 +106,7 @@ struct Transaction: Codable {
   let referenceNumber: String
 }
 
-extension Transaction: Identifiable {
+extension TWTransaction: Identifiable {
   var id: String { referenceNumber }
 }
 

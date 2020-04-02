@@ -13,9 +13,9 @@ struct AccountView: View {
   let accountID: Int
   let balance: Balance
 
-  let onLoad: (_ accountID: Int, _ currency: String) -> ResultPublisher<[Transaction]>
+  let onLoad: (_ accountID: Int, _ currency: String) -> ResultPublisher<[TWTransaction]>
 
-  @State var transactions: [Transaction]?
+  @State var transactions: [TWTransaction]?
 
   @State private var text: String = "loading..."
 
@@ -71,7 +71,7 @@ struct AccountView_Previews: PreviewProvider {
       ),
       onLoad: { _, _ in Just(.success([])).eraseToAnyPublisher() },
       transactions: [
-        Transaction(
+        TWTransaction(
           type: "blah",
           date: ISODate(value: Date()),
           amount: Amount(value: 10, currency: "EUR"),
