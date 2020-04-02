@@ -21,11 +21,19 @@ private let credentialKey = "freeAgentCredential"
 final class FreeAgentStore: ObservableObject {
   @Published var consumerKey: String
   @Published var consumerSecret: String
+  @Published var isAuthenticated = false
 
   private let keychain: Keychain
   private var subscriptions = Set<AnyCancellable>()
 
   private var oauth: OAuth2Swift?
+  private var provider: MoyaProvider<FreeAgent>?
+
+  /// `nil` represents `loading` state
+  @Published private(set) var bankAccounts: MoyaResult<[BankAccount]>?
+
+  /// Index of a currently selected bank account
+  @Published var selectedBankAccountIndex = 3
 
   init() {
     keychain = Keychain(service: keychainService)
@@ -60,6 +68,7 @@ final class FreeAgentStore: ObservableObject {
 
     setupOAuth()
     oauth?.client = OAuthSwiftClient(credential: credential)
+    setupProvider()
   }
 
   private func setupOAuth() {
@@ -70,6 +79,24 @@ final class FreeAgentStore: ObservableObject {
       accessTokenUrl: "https://api.freeagent.com/v2/token_endpoint",
       responseType: "code"
     )
+  }
+
+  private func setupProvider() {
+    let session = Session(interceptor: oauth!.requestInterceptor)
+
+    provider = MoyaProvider<FreeAgent>(session: session)
+
+    isAuthenticated = true
+
+    provider?.requestPublisher(.bankAccounts)
+      .map(FreeAgentBankAccounts.self)
+      .map(\.bankAccounts)
+      .map(Result.success)
+      .catch { Just(.failure($0)) }
+      // convert from non-optional to optional
+      .map { $0 }
+      .assign(to: \.bankAccounts, on: self)
+      .store(in: &subscriptions)
   }
 
   func authenticate() {
@@ -90,24 +117,18 @@ final class FreeAgentStore: ObservableObject {
         guard
           let data = try? encoder.encode(credential),
           let string = String(data: data, encoding: .utf8)
-        else { return }
+        else { fatalError() }
 
         self.keychain[credentialKey] = string
 
-        guard let interceptor = self.oauth?.requestInterceptor else { return }
-
-        let session = Session(interceptor: interceptor)
-
-        let provider = MoyaProvider<FreeAgent>(session: session)
-
-        provider.requestPublisher(.bankAccounts)
-          .mapString()
-          .catch { Just($0.localizedDescription) }
-          .sink { print($0) }
-          .store(in: &self.subscriptions)
+        self.setupProvider()
       case let .failure(error):
-        print(error.localizedDescription)
+        fatalError(error.localizedDescription)
       }
     }
+  }
+
+  func signOut() {
+    isAuthenticated = false
   }
 }

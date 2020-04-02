@@ -26,7 +26,7 @@ final class TransferWiseStore: ObservableObject {
   @Published var selectedProfileIndex = 1
 
   /// `nil` represents `loading` state
-  @Published private(set) var availableProfiles: Result<[Profile], MoyaError>?
+  @Published private(set) var availableProfiles: MoyaResult<[Profile]>?
 
   private let keychain: Keychain
   private var subscriptions = Set<AnyCancellable>()

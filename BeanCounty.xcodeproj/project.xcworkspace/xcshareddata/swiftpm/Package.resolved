@@ -75,10 +75,10 @@
       },
       {
         "package": "OAuthSwiftAlamofire",
-        "repositoryURL": "https://github.com/MaxDesiatov/OAuthSwiftAlamofire.git",
+        "repositoryURL": "https://github.com/OAuthSwift/OAuthSwiftAlamofire.git",
         "state": {
           "branch": "master",
-          "revision": "b1c1681e149b1a5448cb9a7f4e6f50057bbc131d",
+          "revision": "765093b8ab4ea32b2d39dd23ff4a047c68fadd21",
           "version": null
         }
       },

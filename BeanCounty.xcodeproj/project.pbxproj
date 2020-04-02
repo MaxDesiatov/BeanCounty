@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D102A1B42435E74A00B66FE1 /* ResultItemSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D102A1B32435E74A00B66FE1 /* ResultItemSelector.swift */; };
+		D102A1B62435ED3500B66FE1 /* MoyaResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D102A1B52435ED3500B66FE1 /* MoyaResult.swift */; };
 		D1137CA623B4E9AC00CC036C /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = D1137CA523B4E9AC00CC036C /* Moya */; };
 		D1137CA823B4ECF100CC036C /* MoyaPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1137CA723B4ECF100CC036C /* MoyaPublisher.swift */; };
 		D1137CAB23B4ED3E00CC036C /* MoyaProvider+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1137CAA23B4ED3E00CC036C /* MoyaProvider+Combine.swift */; };
@@ -18,7 +20,7 @@
 		D1137CB923B5053000CC036C /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1137CB823B5053000CC036C /* Activity.swift */; };
 		D1137CBC23B5067D00CC036C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1137CBB23B5067D00CC036C /* SettingsView.swift */; };
 		D137E475240AF6FD0071B8A6 /* AccountsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D137E474240AF6FD0071B8A6 /* AccountsList.swift */; };
-		D14B6AFF243138800079DC05 /* OAuthSwiftAlamofire in Frameworks */ = {isa = PBXBuildFile; productRef = D14B6AFE243138800079DC05 /* OAuthSwiftAlamofire */; };
+		D14B8CBA2434DA8900FBDCA5 /* OAuthSwiftAlamofire in Frameworks */ = {isa = PBXBuildFile; productRef = D14B8CB92434DA8900FBDCA5 /* OAuthSwiftAlamofire */; };
 		D1A9C7EF23A1793E00E7372D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A9C7EE23A1793E00E7372D /* AppDelegate.swift */; };
 		D1A9C7F123A1793E00E7372D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A9C7F023A1793E00E7372D /* SceneDelegate.swift */; };
 		D1A9C7F323A1793E00E7372D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A9C7F223A1793E00E7372D /* MainView.swift */; };
@@ -28,10 +30,11 @@
 		D1A9C80623A1793F00E7372D /* BeanCountyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A9C80523A1793F00E7372D /* BeanCountyTests.swift */; };
 		D1A9C81123A1793F00E7372D /* BeanCountyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A9C81023A1793F00E7372D /* BeanCountyUITests.swift */; };
 		D1B0CE51242FE12500D5FA1C /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B0CE50242FE12500D5FA1C /* AccountView.swift */; };
+		D1B3951D2434C5E300F9DD41 /* FreeAgentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B3951C2434C5E300F9DD41 /* FreeAgentModel.swift */; };
 		D1C505D424311BA700A1A3BB /* OAuthSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D1C505D324311BA700A1A3BB /* OAuthSwift */; };
 		D1C505D82431320000A1A3BB /* FreeAgentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C505D72431320000A1A3BB /* FreeAgentStore.swift */; };
 		D1D4D5C52433D3C800E3892D /* FreeAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D4D5C42433D3C800E3892D /* FreeAgent.swift */; };
-		D1F24A0A23C2737900AD5592 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F24A0923C2737900AD5592 /* Model.swift */; };
+		D1F24A0A23C2737900AD5592 /* TransferWiseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F24A0923C2737900AD5592 /* TransferWiseModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +55,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D102A1B32435E74A00B66FE1 /* ResultItemSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultItemSelector.swift; sourceTree = "<group>"; };
+		D102A1B52435ED3500B66FE1 /* MoyaResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaResult.swift; sourceTree = "<group>"; };
 		D1137CA723B4ECF100CC036C /* MoyaPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaPublisher.swift; sourceTree = "<group>"; };
 		D1137CAA23B4ED3E00CC036C /* MoyaProvider+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoyaProvider+Combine.swift"; sourceTree = "<group>"; };
 		D1137CAC23B4ED8500CC036C /* AnyPublisher+Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyPublisher+Response.swift"; sourceTree = "<group>"; };
@@ -77,9 +82,10 @@
 		D1A9C81223A1793F00E7372D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D1A9C81E23A1795300E7372D /* BeanCounty.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BeanCounty.entitlements; sourceTree = "<group>"; };
 		D1B0CE50242FE12500D5FA1C /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		D1B3951C2434C5E300F9DD41 /* FreeAgentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeAgentModel.swift; sourceTree = "<group>"; };
 		D1C505D72431320000A1A3BB /* FreeAgentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeAgentStore.swift; sourceTree = "<group>"; };
 		D1D4D5C42433D3C800E3892D /* FreeAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeAgent.swift; sourceTree = "<group>"; };
-		D1F24A0923C2737900AD5592 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		D1F24A0923C2737900AD5592 /* TransferWiseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferWiseModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +94,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D1137CB423B4FC8C00CC036C /* KeychainAccess in Frameworks */,
-				D14B6AFF243138800079DC05 /* OAuthSwiftAlamofire in Frameworks */,
+				D14B8CBA2434DA8900FBDCA5 /* OAuthSwiftAlamofire in Frameworks */,
 				D1137CA623B4E9AC00CC036C /* Moya in Frameworks */,
 				D1C505D424311BA700A1A3BB /* OAuthSwift in Frameworks */,
 			);
@@ -119,6 +125,7 @@
 				D1137CAC23B4ED8500CC036C /* AnyPublisher+Response.swift */,
 				D1C505D6243131F000A1A3BB /* FreeAgent */,
 				D1C505D5243131E900A1A3BB /* TransferWise */,
+				D102A1B52435ED3500B66FE1 /* MoyaResult.swift */,
 			);
 			path = Moya;
 			sourceTree = "<group>";
@@ -139,6 +146,7 @@
 				D1137CBB23B5067D00CC036C /* SettingsView.swift */,
 				D137E474240AF6FD0071B8A6 /* AccountsList.swift */,
 				D1B0CE50242FE12500D5FA1C /* AccountView.swift */,
+				D102A1B32435E74A00B66FE1 /* ResultItemSelector.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -171,7 +179,6 @@
 				D1A9C81E23A1795300E7372D /* BeanCounty.entitlements */,
 				D1137CB823B5053000CC036C /* Activity.swift */,
 				D1A9C7EE23A1793E00E7372D /* AppDelegate.swift */,
-				D1F24A0923C2737900AD5592 /* Model.swift */,
 				D1137CB523B5030500CC036C /* Scenes */,
 				D1137CA923B4ED2B00CC036C /* Moya */,
 				D1137CBA23B5067000CC036C /* Views */,
@@ -212,6 +219,7 @@
 		D1C505D5243131E900A1A3BB /* TransferWise */ = {
 			isa = PBXGroup;
 			children = (
+				D1F24A0923C2737900AD5592 /* TransferWiseModel.swift */,
 				D1137CAE23B4EFAB00CC036C /* TransferWiseStore.swift */,
 				D1137CB023B4F5C700CC036C /* TransferWise.swift */,
 			);
@@ -221,6 +229,7 @@
 		D1C505D6243131F000A1A3BB /* FreeAgent */ = {
 			isa = PBXGroup;
 			children = (
+				D1B3951C2434C5E300F9DD41 /* FreeAgentModel.swift */,
 				D1C505D72431320000A1A3BB /* FreeAgentStore.swift */,
 				D1D4D5C42433D3C800E3892D /* FreeAgent.swift */,
 			);
@@ -248,7 +257,7 @@
 				D1137CA523B4E9AC00CC036C /* Moya */,
 				D1137CB323B4FC8C00CC036C /* KeychainAccess */,
 				D1C505D324311BA700A1A3BB /* OAuthSwift */,
-				D14B6AFE243138800079DC05 /* OAuthSwiftAlamofire */,
+				D14B8CB92434DA8900FBDCA5 /* OAuthSwiftAlamofire */,
 			);
 			productName = BeanCounty;
 			productReference = D1A9C7EB23A1793E00E7372D /* BeanCounty.app */;
@@ -326,7 +335,7 @@
 				D1137CA423B4E9AC00CC036C /* XCRemoteSwiftPackageReference "Moya" */,
 				D1137CB223B4FC8C00CC036C /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				D1C505D224311BA700A1A3BB /* XCRemoteSwiftPackageReference "OAuthSwift" */,
-				D14B6AFD243138800079DC05 /* XCRemoteSwiftPackageReference "OAuthSwiftAlamofire" */,
+				D14B8CB82434DA8900FBDCA5 /* XCRemoteSwiftPackageReference "OAuthSwiftAlamofire" */,
 			);
 			productRefGroup = D1A9C7EC23A1793E00E7372D /* Products */;
 			projectDirPath = "";
@@ -395,12 +404,15 @@
 				D137E475240AF6FD0071B8A6 /* AccountsList.swift in Sources */,
 				D1137CAB23B4ED3E00CC036C /* MoyaProvider+Combine.swift in Sources */,
 				D1137CB123B4F5C700CC036C /* TransferWise.swift in Sources */,
+				D102A1B62435ED3500B66FE1 /* MoyaResult.swift in Sources */,
 				D1B0CE51242FE12500D5FA1C /* AccountView.swift in Sources */,
-				D1F24A0A23C2737900AD5592 /* Model.swift in Sources */,
+				D102A1B42435E74A00B66FE1 /* ResultItemSelector.swift in Sources */,
+				D1F24A0A23C2737900AD5592 /* TransferWiseModel.swift in Sources */,
 				D1137CB723B5031300CC036C /* SettingsSceneDelegate.swift in Sources */,
 				D1A9C7EF23A1793E00E7372D /* AppDelegate.swift in Sources */,
 				D1137CB923B5053000CC036C /* Activity.swift in Sources */,
 				D1137CAD23B4ED8500CC036C /* AnyPublisher+Response.swift in Sources */,
+				D1B3951D2434C5E300F9DD41 /* FreeAgentModel.swift in Sources */,
 				D1C505D82431320000A1A3BB /* FreeAgentStore.swift in Sources */,
 				D1D4D5C52433D3C800E3892D /* FreeAgent.swift in Sources */,
 				D1A9C7F123A1793E00E7372D /* SceneDelegate.swift in Sources */,
@@ -755,9 +767,9 @@
 				minimumVersion = 4.1.0;
 			};
 		};
-		D14B6AFD243138800079DC05 /* XCRemoteSwiftPackageReference "OAuthSwiftAlamofire" */ = {
+		D14B8CB82434DA8900FBDCA5 /* XCRemoteSwiftPackageReference "OAuthSwiftAlamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/MaxDesiatov/OAuthSwiftAlamofire.git";
+			repositoryURL = "https://github.com/OAuthSwift/OAuthSwiftAlamofire.git";
 			requirement = {
 				branch = master;
 				kind = branch;
@@ -784,9 +796,9 @@
 			package = D1137CB223B4FC8C00CC036C /* XCRemoteSwiftPackageReference "KeychainAccess" */;
 			productName = KeychainAccess;
 		};
-		D14B6AFE243138800079DC05 /* OAuthSwiftAlamofire */ = {
+		D14B8CB92434DA8900FBDCA5 /* OAuthSwiftAlamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D14B6AFD243138800079DC05 /* XCRemoteSwiftPackageReference "OAuthSwiftAlamofire" */;
+			package = D14B8CB82434DA8900FBDCA5 /* XCRemoteSwiftPackageReference "OAuthSwiftAlamofire" */;
 			productName = OAuthSwiftAlamofire;
 		};
 		D1C505D324311BA700A1A3BB /* OAuthSwift */ = {

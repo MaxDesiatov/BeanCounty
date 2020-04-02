@@ -12,38 +12,51 @@ struct SettingsView: View {
   @ObservedObject private(set) var transferWise: TransferWiseStore
   @ObservedObject private(set) var freeAgent: FreeAgentStore
 
-  var profiles: [Profile]? {
-    try? transferWise.availableProfiles?.get()
+  var bankAccounts: [BankAccount]? {
+    try? freeAgent.bankAccounts?.get()
   }
 
   var body: some View {
-    NavigationView {
+    return NavigationView {
       Form {
         Section(header: Text("TransferWise Authentication")) {
           SecureField(
             "Token",
             text: $transferWise.token
           )
+
           Text("Current token is \(transferWise.token.isEmpty ? "in" : "")valid")
-          if profiles != nil {
-            Picker("Profile", selection: $transferWise.selectedProfileIndex) {
-              ForEach(0..<profiles!.count) {
-                Text(self.profiles![$0].type)
-              }
-            }
-          }
+
+          ResultItemSelector(
+            result: transferWise.availableProfiles,
+            title: "Profile",
+            selection: $transferWise.selectedProfileIndex,
+            itemText: \.type
+          )
         }
+
         Section(header: Text("FreeAgent Authentication")) {
           SecureField(
             "Consumer Key",
             text: $freeAgent.consumerKey
           )
+
           SecureField(
             "Consumer Secret",
             text: $freeAgent.consumerSecret
           )
-          Button(action: { self.freeAgent.authenticate() }) {
-            Text("Authenticate")
+
+          ResultItemSelector(
+            result: freeAgent.bankAccounts,
+            title: "Bank Account",
+            selection: $freeAgent.selectedBankAccountIndex,
+            itemText: \.name
+          )
+
+          Button(action: { self.freeAgent.isAuthenticated ?
+              self.freeAgent.signOut() : self.freeAgent.authenticate()
+          }) {
+            Text(freeAgent.isAuthenticated ? "Sign Out" : "Authenticate")
           }.disabled(freeAgent.consumerKey.isEmpty || freeAgent.consumerSecret.isEmpty)
         }
       }
