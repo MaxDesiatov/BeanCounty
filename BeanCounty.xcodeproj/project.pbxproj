@@ -22,6 +22,7 @@
 		D1137CBC23B5067D00CC036C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1137CBB23B5067D00CC036C /* SettingsView.swift */; };
 		D137E475240AF6FD0071B8A6 /* AccountList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D137E474240AF6FD0071B8A6 /* AccountList.swift */; };
 		D14B8CBA2434DA8900FBDCA5 /* OAuthSwiftAlamofire in Frameworks */ = {isa = PBXBuildFile; productRef = D14B8CB92434DA8900FBDCA5 /* OAuthSwiftAlamofire */; };
+		D15294EE24363FE300393A3F /* FATransactionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15294ED24363FE300393A3F /* FATransactionList.swift */; };
 		D1A9C7EF23A1793E00E7372D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A9C7EE23A1793E00E7372D /* AppDelegate.swift */; };
 		D1A9C7F123A1793E00E7372D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A9C7F023A1793E00E7372D /* SceneDelegate.swift */; };
 		D1A9C7F323A1793E00E7372D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A9C7F223A1793E00E7372D /* MainView.swift */; };
@@ -68,6 +69,7 @@
 		D1137CB823B5053000CC036C /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		D1137CBB23B5067D00CC036C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D137E474240AF6FD0071B8A6 /* AccountList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountList.swift; sourceTree = "<group>"; };
+		D15294ED24363FE300393A3F /* FATransactionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FATransactionList.swift; sourceTree = "<group>"; };
 		D1A9C7EB23A1793E00E7372D /* BeanCounty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeanCounty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1A9C7EE23A1793E00E7372D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D1A9C7F023A1793E00E7372D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				D137E474240AF6FD0071B8A6 /* AccountList.swift */,
 				D1B0CE50242FE12500D5FA1C /* AccountView.swift */,
 				D102A1B32435E74A00B66FE1 /* ResultItemSelector.swift */,
+				D15294ED24363FE300393A3F /* FATransactionList.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -409,6 +412,7 @@
 				D102A1B82435F9A200B66FE1 /* CombineHelpers.swift in Sources */,
 				D1137CB123B4F5C700CC036C /* TransferWise.swift in Sources */,
 				D102A1B62435ED3500B66FE1 /* MoyaResult.swift in Sources */,
+				D15294EE24363FE300393A3F /* FATransactionList.swift in Sources */,
 				D1B0CE51242FE12500D5FA1C /* AccountView.swift in Sources */,
 				D102A1B42435E74A00B66FE1 /* ResultItemSelector.swift in Sources */,
 				D1F24A0A23C2737900AD5592 /* TransferWiseModel.swift in Sources */,

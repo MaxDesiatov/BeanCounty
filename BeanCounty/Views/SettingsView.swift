@@ -16,6 +16,10 @@ struct SettingsView: View {
     try? freeAgent.bankAccounts?.get()
   }
 
+  var transactions: [FATransaction]? {
+    try? freeAgent.transactions?.get()
+  }
+
   var body: some View {
     return NavigationView {
       Form {
@@ -52,6 +56,14 @@ struct SettingsView: View {
             selection: $freeAgent.selectedBankAccountIndex,
             itemText: \.name
           )
+
+          if transactions != nil {
+            NavigationLink(
+              destination: FATransactionsList(transactions: transactions!)
+            ) {
+              Text("Transactions List")
+            }
+          }
 
           Button(action: { self.freeAgent.isAuthenticated ?
               self.freeAgent.signOut() : self.freeAgent.authenticate()

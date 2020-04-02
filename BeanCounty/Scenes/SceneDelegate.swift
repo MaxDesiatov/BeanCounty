@@ -23,15 +23,17 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
     guard
-      let store = appDelegate?.transferWise
+      let twStore = appDelegate?.transferWise,
+      let faStore = appDelegate?.freeAgent
     else { return }
 
     // Create the SwiftUI view that provides the window contents.
     #if targetEnvironment(macCatalyst)
-    let view = MainView(store: store, style: DoubleColumnNavigationViewStyle())
+    let style = DoubleColumnNavigationViewStyle()
     #else
-    let view = MainView(store: store, style: StackNavigationViewStyle())
+    let style = StackNavigationViewStyle()
     #endif
+    let view = MainView(twStore: twStore, faStore: faStore, style: style)
 
     // Use a UIHostingController as window root view controller.
     if let windowScene = scene as? UIWindowScene {

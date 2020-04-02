@@ -39,14 +39,14 @@ struct Account: Codable {
 
 struct Balance: Codable {
   let balanceType, currency: String
-  let amount: Amount
+  let amount: TWAmount
 }
 
 extension Balance: Identifiable {
   var id: String { currency }
 }
 
-struct Amount: Codable {
+struct TWAmount: Codable {
   let value: Decimal
   let currency: String
 }
@@ -58,7 +58,7 @@ private func format(_ value: Decimal, currencyCode: String) -> String? {
   return result.string(from: value as NSNumber)
 }
 
-extension Amount: CustomStringConvertible {
+extension TWAmount: CustomStringConvertible {
   var description: String { format(value, currencyCode: currency) ?? "" }
 }
 
@@ -66,7 +66,7 @@ struct Statement: Codable {
   let accountHolder: AccountHolder
   let issuer: Issuer
   let transactions: [TWTransaction]
-  let endOfStatementBalance: Amount
+  let endOfStatementBalance: TWAmount
   let query: Query
 }
 
@@ -98,11 +98,11 @@ struct Query: Codable {
 
 struct TWTransaction: Codable {
   let type: String
-  let date: ISODate
-  let amount, totalFees: Amount
+  let date: Date
+  let amount, totalFees: TWAmount
   let details: TransactionDetails
   let exchangeDetails: ExchangeDetails?
-  let runningBalance: Amount
+  let runningBalance: TWAmount
   let referenceNumber: String
 }
 
@@ -110,35 +110,31 @@ extension TWTransaction: Identifiable {
   var id: String { referenceNumber }
 }
 
-struct ISODate: Codable {
-  let value: Date
+extension JSONDecoder.DateDecodingStrategy {
+  static var twISODate: Self {
+    .custom {
+      let container = try $0.singleValueContainer()
+      let string = try container.decode(String.self)
+      let dateFormatter = ISO8601DateFormatter()
+      dateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
 
-  init(value: Date) {
-    self.value = value
-  }
+      guard let date = dateFormatter.date(from: string) else {
+        throw DecodingError.dataCorruptedError(in: container, debugDescription: "can't decode date")
+      }
 
-  init(from decoder: Decoder) throws {
-    let container = try decoder.singleValueContainer()
-    let string = try container.decode(String.self)
-    let dateFormatter = ISO8601DateFormatter()
-    dateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-
-    guard let date = dateFormatter.date(from: string) else {
-      throw DecodingError.dataCorruptedError(in: container, debugDescription: "can't decode date")
+      return date
     }
-
-    value = date
   }
 }
 
 struct TransactionDetails: Codable {
   let type: String
   let detailsDescription: String?
-  let amount: Amount?
+  let amount: TWAmount?
   let category: String?
   let merchant: Merchant?
   let senderName, senderAccount, paymentReference: String?
-  let sourceAmount, targetAmount, fee: Amount?
+  let sourceAmount, targetAmount, fee: TWAmount?
   let rate: Decimal?
 }
 
@@ -149,5 +145,5 @@ struct Merchant: Codable {
 }
 
 struct ExchangeDetails: Codable {
-  let forAmount: Amount?
+  let forAmount: TWAmount?
 }

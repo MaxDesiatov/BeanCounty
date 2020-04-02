@@ -35,6 +35,8 @@ final class FreeAgentStore: ObservableObject {
   /// Index of a currently selected bank account
   @Published var selectedBankAccountIndex = 3
 
+  @Published private(set) var transactions: MoyaResult<[FATransaction]>?
+
   init() {
     keychain = Keychain(service: keychainService)
     consumerKey = keychain[consumerKeyKey] ?? ""
@@ -48,27 +50,33 @@ final class FreeAgentStore: ObservableObject {
       .write(as: consumerSecretKey, to: keychain)
       .store(in: &subscriptions)
 
+    let decoder = JSONDecoder()
+    decoder.dateDecodingStrategy = .faDate
+
     $bankAccounts
       .combineLatest($selectedBankAccountIndex)
       .compactMap { accountsResult, index in try? accountsResult?.map { $0[index] }.get() }
-      .flatMap { [weak self] bankAccount -> AnyPublisher<String, Never> in
+      .flatMap { [weak self] bankAccount -> AnyPublisher<Result<[FATransaction], MoyaError>, Never> in
         guard let provider = self?.provider else { return Empty().eraseToAnyPublisher() }
 
         return provider.requestPublisher(.transactions(bankAccount))
-          .mapString()
-          .catch { Just($0.localizedDescription) }
+          .map(FATransactions.self, using: decoder)
+          .map(\.bankTransactions)
+          .map { Result.success($0) }
+          .catch { Just(.failure($0)) }
           .eraseToAnyPublisher()
-      }.sink {
-        print($0)
-      }.store(in: &subscriptions)
+      }
+      .map { $0 }
+      .assign(to: \.transactions, on: self)
+      .store(in: &subscriptions)
 
-    let decoder = JSONDecoder()
+    let credentialDecoder = JSONDecoder()
 
     guard
       !consumerKey.isEmpty && !consumerSecret.isEmpty,
       let encodedCredential = keychain[credentialKey],
       let data = encodedCredential.data(using: .utf8),
-      let credential = try? decoder.decode(OAuthSwiftCredential.self, from: data)
+      let credential = try? credentialDecoder.decode(OAuthSwiftCredential.self, from: data)
     else { return }
 
     setupOAuth()
@@ -124,6 +132,23 @@ final class FreeAgentStore: ObservableObject {
     bankAccounts = nil
     keychain[credentialKey] = nil
     isAuthenticated = false
+  }
+}
+
+extension JSONDecoder.DateDecodingStrategy {
+  static var faDate: Self {
+    .custom {
+      let container = try $0.singleValueContainer()
+      let string = try container.decode(String.self)
+      let dateFormatter = ISO8601DateFormatter()
+      dateFormatter.formatOptions = [.withFullDate, .withDashSeparatorInDate]
+
+      guard let date = dateFormatter.date(from: string) else {
+        throw DecodingError.dataCorruptedError(in: container, debugDescription: "can't decode date")
+      }
+
+      return date
+    }
   }
 }
 

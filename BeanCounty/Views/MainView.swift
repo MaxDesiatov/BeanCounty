@@ -6,6 +6,7 @@
 //  Copyright © 2019 Digital Signal Limited. All rights reserved.
 //
 
+import Combine
 import SwiftUI
 
 private let dateFormatter: DateFormatter = {
@@ -18,7 +19,8 @@ private let dateFormatter: DateFormatter = {
 struct MainView<Style: NavigationViewStyle>: View {
   @State private var balances = [(accountID: Int, balance: Balance)]()
 
-  @ObservedObject var store: TransferWiseStore
+  @ObservedObject var twStore: TransferWiseStore
+  let faStore: FreeAgentStore
 
   @State var profileType: String = "loading..."
 
@@ -26,28 +28,32 @@ struct MainView<Style: NavigationViewStyle>: View {
 
   var body: some View {
     NavigationView {
-      AccountList(balances: balances) { self.store.statement(accountID: $0, currency: $1) }
-        .navigationBarTitle(Text(profileType), displayMode: .inline)
-        .navigationBarItems(
-          trailing: Button(
-            action: {
-              UIApplication
-                .shared
-                .requestSceneSessionActivation(
-                  nil,
-                  userActivity: Activity.settings.userActivity,
-                  options: nil,
-                  errorHandler: nil
-                )
-            }
-          ) {
-            Image(systemName: "gear")
+      AccountList(
+        balances: balances,
+        onSelect: { self.twStore.statement(accountID: $0, currency: $1) },
+        onUpload: { _ in Just(.success(())).eraseToAnyPublisher() }
+      )
+      .navigationBarTitle(Text(profileType), displayMode: .inline)
+      .navigationBarItems(
+        trailing: Button(
+          action: {
+            UIApplication
+              .shared
+              .requestSceneSessionActivation(
+                nil,
+                userActivity: Activity.settings.userActivity,
+                options: nil,
+                errorHandler: nil
+              )
           }
-        )
+        ) {
+          Image(systemName: "gear")
+        }
+      )
       Text("Select an account on the left side to view its statement")
     }
     .navigationViewStyle(style)
-    .onReceive(store.selectedProfile) {
+    .onReceive(twStore.selectedProfile) {
       switch $0 {
       case let .success(profile):
         self.profileType = profile.type
@@ -55,7 +61,7 @@ struct MainView<Style: NavigationViewStyle>: View {
         self.profileType = error.localizedDescription
       }
     }
-    .onReceive(store.accounts) {
+    .onReceive(twStore.accounts) {
       switch $0 {
       case let .success(accounts):
         self.balances = accounts
@@ -70,7 +76,7 @@ struct MainView<Style: NavigationViewStyle>: View {
 struct MainView_Previews: PreviewProvider {
   static var previews: some View {
     MainView(
-      store: TransferWiseStore(availableProfiles: .success([Profile(
+      twStore: TransferWiseStore(availableProfiles: .success([Profile(
         id: 42,
         type: "personal",
         details: Details(
@@ -89,6 +95,7 @@ struct MainView_Previews: PreviewProvider {
           businessSubCategory: nil
         )
       )])),
+      faStore: FreeAgentStore(),
       style: StackNavigationViewStyle()
     )
   }

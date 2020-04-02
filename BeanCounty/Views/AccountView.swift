@@ -14,19 +14,31 @@ struct AccountView: View {
   let balance: Balance
 
   let onLoad: (_ accountID: Int, _ currency: String) -> ResultPublisher<[TWTransaction]>
+  let onUpload: (_ transactions: [TWTransaction]) -> ResultPublisher<()>
 
   @State var transactions: [TWTransaction]?
 
   @State private var text: String = "loading..."
 
+  @State var isUploading = false
+
   var body: some View {
     Group {
       if self.transactions != nil {
         List {
+          if isUploading {
+            Text("Uploading to FreeAgent...").onReceive(onUpload(transactions!)) {
+              print("uploaded with result \($0)")
+            }
+          } else {
+            Button(action: { print("blah") }) {
+              Text("Upload to FreeAgent")
+            }
+          }
           ForEach(transactions!) { item in
             HStack {
               VStack(alignment: .leading, spacing: 10) {
-                Text("\(item.date.value, formatter: Self.dateFormater)").foregroundColor(.secondary)
+                Text("\(item.date, formatter: Self.dateFormater)").foregroundColor(.secondary)
                 Text(item.amount.description)
                 Text("fee \(item.totalFees.description)").foregroundColor(.red)
               }
@@ -67,15 +79,16 @@ struct AccountView_Previews: PreviewProvider {
       balance: Balance(
         balanceType: "",
         currency: "EUR",
-        amount: Amount(value: 0, currency: "EUR")
+        amount: TWAmount(value: 0, currency: "EUR")
       ),
       onLoad: { _, _ in Just(.success([])).eraseToAnyPublisher() },
+      onUpload: { _ in Just(.success(())).eraseToAnyPublisher() },
       transactions: [
         TWTransaction(
           type: "blah",
-          date: ISODate(value: Date()),
-          amount: Amount(value: 10, currency: "EUR"),
-          totalFees: Amount(value: 2, currency: "EUR"),
+          date: Date(),
+          amount: TWAmount(value: 10, currency: "EUR"),
+          totalFees: TWAmount(value: 2, currency: "EUR"),
           details: TransactionDetails(
             type: "type",
             detailsDescription: "detailsDescription",
@@ -91,7 +104,7 @@ struct AccountView_Previews: PreviewProvider {
             rate: 4.25
           ),
           exchangeDetails: nil,
-          runningBalance: Amount(value: 345, currency: "EUR"),
+          runningBalance: TWAmount(value: 345, currency: "EUR"),
           referenceNumber: "referenceNumber"
         ),
       ]

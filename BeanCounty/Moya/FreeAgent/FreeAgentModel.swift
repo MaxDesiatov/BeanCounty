@@ -63,14 +63,16 @@ struct FATransactions: Codable {
 
 struct FATransaction: Codable {
   let url: URL
-  let amount: Decimal
+  let amount: FAAmount
   let bankAccount: URL
-  let datedOn, description, fullDescription, uploadedAt: String
-  let unexplainedAmount: Decimal
+  let datedOn: Date
+  let description, fullDescription: String
+  let uploadedAt: Date
+  let unexplainedAmount: FAAmount
   let isManual: Bool
-  let createdAt, updatedAt: String
+  let createdAt, updatedAt: Date
   let matchingTransactionsCount: Int
-  let bankTransactionExplanations: [BankTransactionExplanation]
+  let bankTransactionExplanations: [FAExplanation]
 
   enum CodingKeys: String, CodingKey {
     case url, amount
@@ -88,13 +90,17 @@ struct FATransaction: Codable {
   }
 }
 
-struct BankTransactionExplanation: Codable {
+extension FATransaction: Identifiable {
+  var id: URL { url }
+}
+
+struct FAExplanation: Codable {
   let bankAccount: URL
   let category: Category
   let datedOn: String
   let description: String
   let transactionDescription, grossValue: String
-  let foreignCurrencyValue: Decimal
+  let foreignCurrencyValue: FAAmount
   let transferValue: String
   let type: FATransactionType
   let isMoneyIn, isMoneyOut, isMoneyPaidToUser: Bool
@@ -175,4 +181,25 @@ enum FATransactionType: String, Codable {
   case payment = "Payment"
   case transferFromAnotherAccount = "Transfer from Another Account"
   case transferToAnotherAccount = "Transfer to Another Account"
+}
+
+struct FAAmount: Codable {
+  let value: Decimal
+
+  init(value: Decimal) {
+    self.value = value
+  }
+
+  init(from decoder: Decoder) throws {
+    let container = try decoder.singleValueContainer()
+    let string = try container.decode(String.self)
+    guard let value = Decimal(string: string) else {
+      throw DecodingError.dataCorruptedError(
+        in: container,
+        debugDescription: "can't decode decimal value"
+      )
+    }
+
+    self.value = value
+  }
 }

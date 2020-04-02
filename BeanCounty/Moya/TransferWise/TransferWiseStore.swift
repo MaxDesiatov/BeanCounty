@@ -84,7 +84,10 @@ final class TransferWiseStore: ObservableObject {
       .eraseToAnyPublisher()
 
   func statement(accountID: Int, currency: String) -> ResultPublisher<[TWTransaction]> {
-    selectedProfile
+    let decoder = JSONDecoder()
+    decoder.dateDecodingStrategy = .twISODate
+
+    return selectedProfile
       .flatMap {
         $0.publisher
           .flatMap {
@@ -92,10 +95,10 @@ final class TransferWiseStore: ObservableObject {
               profileID: $0.id,
               accountID: accountID,
               currency: currency,
-              start: Date() - 60 * 60 * 24 * 365,
+              start: Date() - 60 * 60 * 24 * 310,
               end: Date()
             ))
-              .map(Statement.self)
+              .map(Statement.self, using: decoder)
               .map(\.transactions)
           }
           .map(Result.success)
