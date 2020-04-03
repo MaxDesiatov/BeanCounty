@@ -12,30 +12,21 @@ import SwiftUI
 struct AccountView: View {
   let accountID: Int
   let balance: Balance
-
-  let onLoad: (_ accountID: Int, _ currency: String) -> ResultPublisher<[TWTransaction]>
-  let onUpload: (_ transactions: [TWTransaction]) -> ResultPublisher<()>
+  let faStore: FreeAgentStore
 
   @State var transactions: [TWTransaction]?
 
-  @State private var text: String = "loading..."
-
-  @State var isUploading = false
+  @ObservedObject var runner: Runner<[TWTransaction]>
 
   var body: some View {
-    Group {
-      if self.transactions != nil {
-        List {
-          if isUploading {
-            Text("Uploading to FreeAgent...").onReceive(onUpload(transactions!)) {
-              print("uploaded with result \($0)")
-            }
-          } else {
-            Button(action: { print("blah") }) {
-              Text("Upload to FreeAgent")
-            }
-          }
-          ForEach(transactions!) { item in
+    Group { () -> AnyView in
+      switch runner.state {
+      case let .failure(error):
+        return AnyView(Text(error.localizedDescription))
+      case let .success(transactions):
+        return AnyView(List {
+          UploadButton(transactions: transactions, runner: Runner(faStore.upload(transactions)))
+          ForEach(transactions) { item in
             HStack {
               VStack(alignment: .leading, spacing: 10) {
                 Text("\(item.date, formatter: Self.dateFormater)").foregroundColor(.secondary)
@@ -49,19 +40,14 @@ struct AccountView: View {
               }
             }
           }
-        }
-      } else {
-        Text(text)
+        })
+      default:
+        return AnyView(Text("loading..."))
       }
     }
     .navigationBarTitle(Text("\(balance.amount.value as NSNumber) \(balance.currency)"))
-    .onReceive(onLoad(accountID, balance.currency)) {
-      switch $0 {
-      case let .success(transactions):
-        self.transactions = transactions
-      case let .failure(error):
-        self.text = error.localizedDescription
-      }
+    .onAppear {
+      self.runner.run()
     }
   }
 
@@ -81,8 +67,7 @@ struct AccountView_Previews: PreviewProvider {
         currency: "EUR",
         amount: TWAmount(value: 0, currency: "EUR")
       ),
-      onLoad: { _, _ in Just(.success([])).eraseToAnyPublisher() },
-      onUpload: { _ in Just(.success(())).eraseToAnyPublisher() },
+      faStore: FreeAgentStore(),
       transactions: [
         TWTransaction(
           type: "blah",
@@ -107,7 +92,8 @@ struct AccountView_Previews: PreviewProvider {
           runningBalance: TWAmount(value: 345, currency: "EUR"),
           referenceNumber: "referenceNumber"
         ),
-      ]
+      ],
+      runner: Runner(Just(.success([])).eraseToAnyPublisher())
     )
   }
 }

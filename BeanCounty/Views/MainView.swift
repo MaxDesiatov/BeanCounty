@@ -30,8 +30,8 @@ struct MainView<Style: NavigationViewStyle>: View {
     NavigationView {
       AccountList(
         balances: balances,
-        onSelect: { self.twStore.statement(accountID: $0, currency: $1) },
-        onUpload: { _ in Just(.success(())).eraseToAnyPublisher() }
+        faStore: faStore,
+        onSelect: { self.twStore.statement(accountID: $0, currency: $1) }
       )
       .navigationBarTitle(Text(profileType), displayMode: .inline)
       .navigationBarItems(

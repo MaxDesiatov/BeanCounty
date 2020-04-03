@@ -56,7 +56,7 @@ final class FreeAgentStore: ObservableObject {
     $bankAccounts
       .combineLatest($selectedBankAccountIndex)
       .compactMap { accountsResult, index in try? accountsResult?.map { $0[index] }.get() }
-      .flatMap { [weak self] bankAccount -> AnyPublisher<Result<[FATransaction], MoyaError>, Never> in
+      .flatMap { [weak self] bankAccount -> AnyPublisher<MoyaResult<[FATransaction]>, Never> in
         guard let provider = self?.provider else { return Empty().eraseToAnyPublisher() }
 
         return provider.requestPublisher(.transactions(bankAccount))
@@ -97,7 +97,12 @@ final class FreeAgentStore: ObservableObject {
   private func setupProvider() {
     let session = Session(interceptor: oauth!.requestInterceptor)
 
-    provider = MoyaProvider<FreeAgent>(session: session)
+    provider = MoyaProvider<FreeAgent>(session: session, plugins: [
+      NetworkLoggerPlugin(configuration: .init(logOptions: [
+        .errorResponseBody,
+        .formatRequestAscURL,
+      ])),
+    ])
 
     isAuthenticated = true
 
@@ -133,6 +138,72 @@ final class FreeAgentStore: ObservableObject {
     keychain[credentialKey] = nil
     isAuthenticated = false
   }
+
+  func upload(_ transactions: [TWTransaction]) -> ResultPublisher<()> {
+    // swiftlint:disable force_try
+    let bankAccount = try! bankAccounts!.get()[selectedBankAccountIndex]
+    let statement = FAStatement(
+      statement: transactions.flatMap { transaction -> [FAStatement.Item] in
+        let item = FAStatement.Item(
+          datedOn: transaction.date,
+          amount: transaction.amount.value + transaction.totalFees.value,
+          description: "Transfer \(transaction.amount.value > 0 ? "to" : "from") TransferWise"
+        )
+
+        guard transaction.totalFees.value > 0 else { return [item] }
+
+        return [
+          item,
+          .init(
+            datedOn: transaction.date,
+            amount: -transaction.totalFees.value,
+            description: "TransferWise Fee"
+          ),
+        ]
+      }
+    )
+
+    return try! provider!.requestPublisher(.upload(bankAccount, statement))
+      .map { _ in
+        Result.success(())
+      }
+      .catch {
+        Just(.failure($0))
+      }
+      .eraseToAnyPublisher()
+  }
+}
+
+final class Runner<T>: ObservableObject {
+  enum State {
+    case initial
+    case running
+    case success(T)
+    case failure(MoyaError)
+  }
+
+  let publisher: ResultPublisher<T>
+
+  var subscription: AnyCancellable?
+
+  @Published var state = State.initial
+
+  init(_ publisher: ResultPublisher<T>) {
+    self.publisher = publisher
+  }
+
+  func run() {
+    state = .running
+    subscription = publisher
+      .map {
+        switch $0 {
+        case let .success(value):
+          return .success(value)
+        case let .failure(error):
+          return .failure(error)
+        }
+      }.assign(to: \.state, on: self)
+  }
 }
 
 extension JSONDecoder.DateDecodingStrategy {
@@ -148,6 +219,20 @@ extension JSONDecoder.DateDecodingStrategy {
       }
 
       return date
+    }
+  }
+}
+
+extension JSONEncoder.DateEncodingStrategy {
+  static var faDate: Self {
+    .custom { date, encoder in
+      var container = encoder.singleValueContainer()
+
+      let dateFormatter = ISO8601DateFormatter()
+      dateFormatter.formatOptions = [.withFullDate, .withDashSeparatorInDate]
+
+      let string = dateFormatter.string(from: date)
+      try container.encode(string)
     }
   }
 }

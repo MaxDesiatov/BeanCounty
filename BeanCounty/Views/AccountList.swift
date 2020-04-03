@@ -11,9 +11,9 @@ import SwiftUI
 
 struct AccountList: View {
   let balances: [(accountID: Int, balance: Balance)]
+  let faStore: FreeAgentStore
 
   let onSelect: (_ accountID: Int, _ currency: String) -> ResultPublisher<[TWTransaction]>
-  let onUpload: (_ transactions: [TWTransaction]) -> ResultPublisher<()>
 
   var body: some View {
     List {
@@ -22,8 +22,8 @@ struct AccountList: View {
           destination: AccountView(
             accountID: item.accountID,
             balance: item.balance,
-            onLoad: self.onSelect,
-            onUpload: self.onUpload
+            faStore: self.faStore,
+            runner: Runner(self.onSelect(item.accountID, item.balance.currency))
           )
         ) {
           Text("\(item.balance.amount.value as NSNumber) \(item.balance.currency)")
@@ -48,8 +48,8 @@ struct AccountsList_Previews: PreviewProvider {
           amount: TWAmount(value: 10, currency: "EUR")
         )),
       ],
-      onSelect: { _, _ in Just(.success([])).eraseToAnyPublisher() },
-      onUpload: { _ in Just(.success(())).eraseToAnyPublisher() }
+      faStore: FreeAgentStore(),
+      onSelect: { _, _ in Just(.success([])).eraseToAnyPublisher() }
     )
   }
 }

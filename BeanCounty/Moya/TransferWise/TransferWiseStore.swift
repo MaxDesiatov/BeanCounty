@@ -11,7 +11,7 @@ import Foundation
 import KeychainAccess
 import Moya
 
-typealias ResultPublisher<Output> = AnyPublisher<Result<Output, MoyaError>, Never>
+typealias ResultPublisher<Output> = AnyPublisher<MoyaResult<Output>, Never>
 
 private let transferWiseTokenKey = "transferWiseToken"
 
