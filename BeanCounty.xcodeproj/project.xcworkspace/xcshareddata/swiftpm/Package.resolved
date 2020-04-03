@@ -20,6 +20,15 @@
         }
       },
       {
+        "package": "CoreXLSX",
+        "repositoryURL": "https://github.com/MaxDesiatov/CoreXLSX.git",
+        "state": {
+          "branch": null,
+          "revision": "27e403bffde352450275cafeffa9d32cc8d24a39",
+          "version": "0.9.1"
+        }
+      },
+      {
         "package": "Erik",
         "repositoryURL": "https://github.com/phimage/Erik.git",
         "state": {
@@ -107,6 +116,24 @@
           "branch": null,
           "revision": "8b5afb48ae64d4f729f0489ddcfe09c62b9c3687",
           "version": "1.4.7"
+        }
+      },
+      {
+        "package": "XMLCoder",
+        "repositoryURL": "https://github.com/maxdesiatov/XMLCoder.git",
+        "state": {
+          "branch": null,
+          "revision": "96d210ee78d8b1d38870f81ff48d8e8ab806fffa",
+          "version": "0.9.0"
+        }
+      },
+      {
+        "package": "ZIPFoundation",
+        "repositoryURL": "https://github.com/weichsel/ZIPFoundation.git",
+        "state": {
+          "branch": null,
+          "revision": "ec32d62d412578542c0ffb7a6ce34d3e64b43b94",
+          "version": "0.9.11"
         }
       }
     ]

@@ -8,6 +8,7 @@
 
 import Alamofire
 import Combine
+import CoreXLSX
 import Foundation
 import KeychainAccess
 import Moya
@@ -172,6 +173,48 @@ final class FreeAgentStore: ObservableObject {
       }
       .eraseToAnyPublisher()
   }
+
+  func uploadXLSX() throws -> ResultPublisher<()> {
+    let path = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first!
+      .appendingPathComponent("import.xlsx").path
+    let file = XLSXFile(filepath: path)!
+
+    let referenceDate: Double = -2_209_161_600
+
+    var items = [FAStatement.Item]()
+    for path in try file.parseWorksheetPaths() {
+      let ws = try file.parseWorksheet(at: path)
+      for row in ws.data!.rows.dropFirst() {
+        let date = Date(timeIntervalSince1970: referenceDate + Double(row.cells[1].value!)! * 24 * 60 * 60)
+        items.append(.init(
+          datedOn: date,
+          amount: Decimal(string: row.cells[8].value!)!,
+          description: row.cells[5].inlineString!.text!
+        ))
+        let fee = Decimal(string: row.cells[9].value!)!
+
+        if fee != 0 {
+          items.append(.init(
+            datedOn: date,
+            amount: fee,
+            description: "Toptal Payments Transfer To Bank Account Fee"
+          ))
+        }
+      }
+    }
+
+    // swiftlint:disable force_try
+    let bankAccount = try! bankAccounts!.get()[selectedBankAccountIndex]
+
+    return try! provider!.requestPublisher(.upload(bankAccount, FAStatement(statement: items)))
+      .map { _ in
+        Result.success(())
+      }
+      .catch {
+        Just(.failure($0))
+      }
+      .eraseToAnyPublisher()
+  }
 }
 
 final class Runner<T>: ObservableObject {
@@ -182,19 +225,19 @@ final class Runner<T>: ObservableObject {
     case failure(MoyaError)
   }
 
-  let publisher: ResultPublisher<T>
+  let deferredPublisher: () -> ResultPublisher<T>
 
   var subscription: AnyCancellable?
 
   @Published var state = State.initial
 
-  init(_ publisher: ResultPublisher<T>) {
-    self.publisher = publisher
+  init(_ deferredPublisher: @escaping () -> ResultPublisher<T>) {
+    self.deferredPublisher = deferredPublisher
   }
 
   func run() {
     state = .running
-    subscription = publisher
+    subscription = deferredPublisher()
       .map {
         switch $0 {
         case let .success(value):

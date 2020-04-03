@@ -23,7 +23,7 @@ final class SettingsSceneDelegate: NSObject, UIWindowSceneDelegate {
       let freeAgent = appDelegate?.freeAgent
     else { return }
 
-    let view = SettingsView(transferWise: transferWise, freeAgent: freeAgent)
+    let view = SettingsView(twStore: transferWise, faStore: freeAgent)
 
     // Use a UIHostingController as window root view controller.
     if let windowScene = scene as? UIWindowScene {

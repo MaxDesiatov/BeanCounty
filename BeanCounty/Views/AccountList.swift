@@ -23,7 +23,7 @@ struct AccountList: View {
             accountID: item.accountID,
             balance: item.balance,
             faStore: self.faStore,
-            runner: Runner(self.onSelect(item.accountID, item.balance.currency))
+            runner: Runner { self.onSelect(item.accountID, item.balance.currency) }
           )
         ) {
           Text("\(item.balance.amount.value as NSNumber) \(item.balance.currency)")

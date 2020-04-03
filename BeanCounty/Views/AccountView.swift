@@ -25,7 +25,9 @@ struct AccountView: View {
         return AnyView(Text(error.localizedDescription))
       case let .success(transactions):
         return AnyView(List {
-          UploadButton(transactions: transactions, runner: Runner(faStore.upload(transactions)))
+          UploadButton(transactions: transactions, runner: Runner {
+            self.faStore.upload(transactions)
+          })
           ForEach(transactions) { item in
             HStack {
               VStack(alignment: .leading, spacing: 10) {
@@ -93,7 +95,7 @@ struct AccountView_Previews: PreviewProvider {
           referenceNumber: "referenceNumber"
         ),
       ],
-      runner: Runner(Just(.success([])).eraseToAnyPublisher())
+      runner: Runner { Just(.success([])).eraseToAnyPublisher() }
     )
   }
 }

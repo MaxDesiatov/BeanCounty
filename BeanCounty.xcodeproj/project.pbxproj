@@ -36,6 +36,8 @@
 		D1B3951D2434C5E300F9DD41 /* FreeAgentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B3951C2434C5E300F9DD41 /* FreeAgentModel.swift */; };
 		D1C505D424311BA700A1A3BB /* OAuthSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D1C505D324311BA700A1A3BB /* OAuthSwift */; };
 		D1C505D82431320000A1A3BB /* FreeAgentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C505D72431320000A1A3BB /* FreeAgentStore.swift */; };
+		D1D4AEFA2437901600B3DD6D /* CoreXLSX in Frameworks */ = {isa = PBXBuildFile; productRef = D1D4AEF92437901600B3DD6D /* CoreXLSX */; };
+		D1D4AEFC243791A900B3DD6D /* XLSXUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D4AEFB243791A900B3DD6D /* XLSXUpload.swift */; };
 		D1D4D5C52433D3C800E3892D /* FreeAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D4D5C42433D3C800E3892D /* FreeAgent.swift */; };
 		D1F24A0A23C2737900AD5592 /* TransferWiseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F24A0923C2737900AD5592 /* TransferWiseModel.swift */; };
 /* End PBXBuildFile section */
@@ -90,6 +92,7 @@
 		D1B0CE50242FE12500D5FA1C /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		D1B3951C2434C5E300F9DD41 /* FreeAgentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeAgentModel.swift; sourceTree = "<group>"; };
 		D1C505D72431320000A1A3BB /* FreeAgentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeAgentStore.swift; sourceTree = "<group>"; };
+		D1D4AEFB243791A900B3DD6D /* XLSXUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XLSXUpload.swift; sourceTree = "<group>"; };
 		D1D4D5C42433D3C800E3892D /* FreeAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeAgent.swift; sourceTree = "<group>"; };
 		D1F24A0923C2737900AD5592 /* TransferWiseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferWiseModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -102,6 +105,7 @@
 				D1137CB423B4FC8C00CC036C /* KeychainAccess in Frameworks */,
 				D14B8CBA2434DA8900FBDCA5 /* OAuthSwiftAlamofire in Frameworks */,
 				D1137CA623B4E9AC00CC036C /* Moya in Frameworks */,
+				D1D4AEFA2437901600B3DD6D /* CoreXLSX in Frameworks */,
 				D1C505D424311BA700A1A3BB /* OAuthSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -156,6 +160,7 @@
 				D102A1B32435E74A00B66FE1 /* ResultItemSelector.swift */,
 				D15294ED24363FE300393A3F /* FATransactionList.swift */,
 				D15294EF24376BE900393A3F /* UploadButton.swift */,
+				D1D4AEFB243791A900B3DD6D /* XLSXUpload.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -267,6 +272,7 @@
 				D1137CB323B4FC8C00CC036C /* KeychainAccess */,
 				D1C505D324311BA700A1A3BB /* OAuthSwift */,
 				D14B8CB92434DA8900FBDCA5 /* OAuthSwiftAlamofire */,
+				D1D4AEF92437901600B3DD6D /* CoreXLSX */,
 			);
 			productName = BeanCounty;
 			productReference = D1A9C7EB23A1793E00E7372D /* BeanCounty.app */;
@@ -345,6 +351,7 @@
 				D1137CB223B4FC8C00CC036C /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				D1C505D224311BA700A1A3BB /* XCRemoteSwiftPackageReference "OAuthSwift" */,
 				D14B8CB82434DA8900FBDCA5 /* XCRemoteSwiftPackageReference "OAuthSwiftAlamofire" */,
+				D1D4AEF82437901600B3DD6D /* XCRemoteSwiftPackageReference "CoreXLSX" */,
 			);
 			productRefGroup = D1A9C7EC23A1793E00E7372D /* Products */;
 			projectDirPath = "";
@@ -427,6 +434,7 @@
 				D1C505D82431320000A1A3BB /* FreeAgentStore.swift in Sources */,
 				D1D4D5C52433D3C800E3892D /* FreeAgent.swift in Sources */,
 				D1A9C7F123A1793E00E7372D /* SceneDelegate.swift in Sources */,
+				D1D4AEFC243791A900B3DD6D /* XLSXUpload.swift in Sources */,
 				D1137CA823B4ECF100CC036C /* MoyaPublisher.swift in Sources */,
 				D1A9C7F323A1793E00E7372D /* MainView.swift in Sources */,
 				D15294F024376BE900393A3F /* UploadButton.swift in Sources */,
@@ -795,6 +803,14 @@
 				minimumVersion = 2.1.0;
 			};
 		};
+		D1D4AEF82437901600B3DD6D /* XCRemoteSwiftPackageReference "CoreXLSX" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MaxDesiatov/CoreXLSX.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 0.9.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -817,6 +833,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D1C505D224311BA700A1A3BB /* XCRemoteSwiftPackageReference "OAuthSwift" */;
 			productName = OAuthSwift;
+		};
+		D1D4AEF92437901600B3DD6D /* CoreXLSX */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D1D4AEF82437901600B3DD6D /* XCRemoteSwiftPackageReference "CoreXLSX" */;
+			productName = CoreXLSX;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -9,15 +9,15 @@
 import SwiftUI
 
 struct SettingsView: View {
-  @ObservedObject private(set) var transferWise: TransferWiseStore
-  @ObservedObject private(set) var freeAgent: FreeAgentStore
+  @ObservedObject private(set) var twStore: TransferWiseStore
+  @ObservedObject private(set) var faStore: FreeAgentStore
 
   var bankAccounts: [FABankAccount]? {
-    try? freeAgent.bankAccounts?.get()
+    try? faStore.bankAccounts?.get()
   }
 
   var transactions: [FATransaction]? {
-    try? freeAgent.transactions?.get()
+    try? faStore.transactions?.get()
   }
 
   var body: some View {
@@ -26,15 +26,15 @@ struct SettingsView: View {
         Section(header: Text("TransferWise Authentication")) {
           SecureField(
             "Token",
-            text: $transferWise.token
+            text: $twStore.token
           )
 
-          Text("Current token is \(transferWise.token.isEmpty ? "in" : "")valid")
+          Text("Current token is \(twStore.token.isEmpty ? "in" : "")valid")
 
           ResultItemSelector(
-            result: transferWise.availableProfiles,
+            result: twStore.availableProfiles,
             title: "Profile",
-            selection: $transferWise.selectedProfileIndex,
+            selection: $twStore.selectedProfileIndex,
             itemText: \.type
           )
         }
@@ -42,34 +42,40 @@ struct SettingsView: View {
         Section(header: Text("FreeAgent Authentication")) {
           SecureField(
             "Consumer Key",
-            text: $freeAgent.consumerKey
+            text: $faStore.consumerKey
           )
 
           SecureField(
             "Consumer Secret",
-            text: $freeAgent.consumerSecret
+            text: $faStore.consumerSecret
           )
 
           ResultItemSelector(
-            result: freeAgent.bankAccounts,
+            result: faStore.bankAccounts,
             title: "Bank Account",
-            selection: $freeAgent.selectedBankAccountIndex,
+            selection: $faStore.selectedBankAccountIndex,
             itemText: \.name
           )
 
           if transactions != nil {
-            NavigationLink(
-              destination: FATransactionsList(transactions: transactions!)
-            ) {
-              Text("Transactions List")
+            Group {
+              NavigationLink(
+                destination: FATransactionsList(transactions: transactions!)
+              ) {
+                Text("Transactions List")
+              }
+              XLSXUpload(runner: Runner {
+                // swiftlint:disable force_try
+                try! self.faStore.uploadXLSX()
+              })
             }
           }
 
-          Button(action: { self.freeAgent.isAuthenticated ?
-              self.freeAgent.signOut() : self.freeAgent.authenticate()
+          Button(action: { self.faStore.isAuthenticated ?
+              self.faStore.signOut() : self.faStore.authenticate()
           }) {
-            Text(freeAgent.isAuthenticated ? "Sign Out" : "Authenticate")
-          }.disabled(freeAgent.consumerKey.isEmpty || freeAgent.consumerSecret.isEmpty)
+            Text(faStore.isAuthenticated ? "Sign Out" : "Authenticate")
+          }.disabled(faStore.consumerKey.isEmpty || faStore.consumerSecret.isEmpty)
         }
       }
       .navigationBarTitle("Settings")
@@ -81,7 +87,7 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
   static var previews: some View {
     SettingsView(
-      transferWise: TransferWiseStore(), freeAgent: FreeAgentStore()
+      twStore: TransferWiseStore(), faStore: FreeAgentStore()
     )
   }
 }

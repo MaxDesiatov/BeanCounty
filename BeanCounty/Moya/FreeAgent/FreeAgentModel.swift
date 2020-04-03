@@ -96,8 +96,8 @@ extension FATransaction: Identifiable {
 
 struct FAExplanation: Codable {
   let bankAccount: URL
-  let category: Category
-  let datedOn: String
+  let category: URL
+  let datedOn: Date
   let description: String
   let transactionDescription, grossValue: String
   let foreignCurrencyValue: FAAmount
@@ -146,7 +146,7 @@ struct FAExplanation: Codable {
 struct Attachment: Codable {
   let url, contentSrc, contentSrcMedium, contentSrcSmall: URL
   let expiresAt: String
-  let contentType: ContentType
+  let contentType: String
   let fileName: String
   let fileSize: Int
 
@@ -162,15 +162,6 @@ struct Attachment: Codable {
   }
 }
 
-enum ContentType: String, Codable {
-  case applicationPDF = "application/pdf"
-}
-
-enum Category: String, Codable {
-  case httpsAPIFreeagentCOMV2Categories363 = "https://api.freeagent.com/v2/categories/363"
-  case httpsAPIFreeagentCOMV2Categories761 = "https://api.freeagent.com/v2/categories/761"
-}
-
 enum LockedAttribute: String, Codable {
   case linkedTransferAccount = "linked_transfer_account"
   case transferValue = "transfer_value"
@@ -181,6 +172,7 @@ enum FATransactionType: String, Codable {
   case payment = "Payment"
   case transferFromAnotherAccount = "Transfer from Another Account"
   case transferToAnotherAccount = "Transfer to Another Account"
+  case invoiceReceipt = "Invoice Receipt"
 }
 
 struct FAAmount: Codable {
