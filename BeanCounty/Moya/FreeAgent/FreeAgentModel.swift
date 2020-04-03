@@ -196,7 +196,7 @@ struct FAAmount: Codable {
   }
 
   func encode(to encoder: Encoder) throws {
-    var container = try encoder.singleValueContainer()
+    var container = encoder.singleValueContainer()
     let string = NumberFormatter().string(from: value as NSNumber)
     try container.encode(string)
   }
