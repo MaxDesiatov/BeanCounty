@@ -21,6 +21,8 @@
 		D1137CB923B5053000CC036C /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1137CB823B5053000CC036C /* Activity.swift */; };
 		D1137CBC23B5067D00CC036C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1137CBB23B5067D00CC036C /* SettingsView.swift */; };
 		D137E475240AF6FD0071B8A6 /* AccountList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D137E474240AF6FD0071B8A6 /* AccountList.swift */; };
+		D13AE6C527BE8FF300777F73 /* CSV in Frameworks */ = {isa = PBXBuildFile; productRef = D13AE6C427BE8FF300777F73 /* CSV */; };
+		D13BE38227BDA73500D50EDD /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13BE38127BDA73500D50EDD /* main.swift */; };
 		D14B8CBA2434DA8900FBDCA5 /* OAuthSwiftAlamofire in Frameworks */ = {isa = PBXBuildFile; productRef = D14B8CB92434DA8900FBDCA5 /* OAuthSwiftAlamofire */; };
 		D15294EE24363FE300393A3F /* FATransactionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15294ED24363FE300393A3F /* FATransactionList.swift */; };
 		D15294F024376BE900393A3F /* UploadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15294EF24376BE900393A3F /* UploadButton.swift */; };
@@ -59,6 +61,18 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		D13BE37D27BDA73500D50EDD /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		D102A1B32435E74A00B66FE1 /* ResultItemSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultItemSelector.swift; sourceTree = "<group>"; };
 		D102A1B52435ED3500B66FE1 /* MoyaResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaResult.swift; sourceTree = "<group>"; };
@@ -72,6 +86,8 @@
 		D1137CB823B5053000CC036C /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		D1137CBB23B5067D00CC036C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D137E474240AF6FD0071B8A6 /* AccountList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountList.swift; sourceTree = "<group>"; };
+		D13BE37F27BDA73500D50EDD /* upwork2fa */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = upwork2fa; sourceTree = BUILT_PRODUCTS_DIR; };
+		D13BE38127BDA73500D50EDD /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		D15294ED24363FE300393A3F /* FATransactionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FATransactionList.swift; sourceTree = "<group>"; };
 		D15294EF24376BE900393A3F /* UploadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadButton.swift; sourceTree = "<group>"; };
 		D1A9C7EB23A1793E00E7372D /* BeanCounty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeanCounty.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,6 +114,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		D13BE37C27BDA73500D50EDD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D13AE6C527BE8FF300777F73 /* CSV in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D1A9C7E823A1793E00E7372D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -165,12 +189,21 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		D13BE38027BDA73500D50EDD /* upwork2fa */ = {
+			isa = PBXGroup;
+			children = (
+				D13BE38127BDA73500D50EDD /* main.swift */,
+			);
+			path = upwork2fa;
+			sourceTree = "<group>";
+		};
 		D1A9C7E223A1793E00E7372D = {
 			isa = PBXGroup;
 			children = (
 				D1A9C7ED23A1793E00E7372D /* BeanCounty */,
 				D1A9C80423A1793F00E7372D /* BeanCountyTests */,
 				D1A9C80F23A1793F00E7372D /* BeanCountyUITests */,
+				D13BE38027BDA73500D50EDD /* upwork2fa */,
 				D1A9C7EC23A1793E00E7372D /* Products */,
 			);
 			indentWidth = 2;
@@ -183,6 +216,7 @@
 				D1A9C7EB23A1793E00E7372D /* BeanCounty.app */,
 				D1A9C80123A1793F00E7372D /* BeanCountyTests.xctest */,
 				D1A9C80C23A1793F00E7372D /* BeanCountyUITests.xctest */,
+				D13BE37F27BDA73500D50EDD /* upwork2fa */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -253,6 +287,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		D13BE37E27BDA73500D50EDD /* upwork2fa */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D13BE38527BDA73500D50EDD /* Build configuration list for PBXNativeTarget "upwork2fa" */;
+			buildPhases = (
+				D13BE37B27BDA73500D50EDD /* Sources */,
+				D13BE37C27BDA73500D50EDD /* Frameworks */,
+				D13BE37D27BDA73500D50EDD /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = upwork2fa;
+			packageProductDependencies = (
+				D13AE6C427BE8FF300777F73 /* CSV */,
+			);
+			productName = upwork2fa;
+			productReference = D13BE37F27BDA73500D50EDD /* upwork2fa */;
+			productType = "com.apple.product-type.tool";
+		};
 		D1A9C7EA23A1793E00E7372D /* BeanCounty */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D1A9C81523A1793F00E7372D /* Build configuration list for PBXNativeTarget "BeanCounty" */;
@@ -320,10 +374,13 @@
 		D1A9C7E323A1793E00E7372D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
+				LastSwiftUpdateCheck = 1320;
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Digital Signal Limited";
 				TargetAttributes = {
+					D13BE37E27BDA73500D50EDD = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
 					D1A9C7EA23A1793E00E7372D = {
 						CreatedOnToolsVersion = 11.3;
 					};
@@ -352,6 +409,7 @@
 				D1C505D224311BA700A1A3BB /* XCRemoteSwiftPackageReference "OAuthSwift" */,
 				D14B8CB82434DA8900FBDCA5 /* XCRemoteSwiftPackageReference "OAuthSwiftAlamofire" */,
 				D1D4AEF82437901600B3DD6D /* XCRemoteSwiftPackageReference "CoreXLSX" */,
+				D13AE6C327BE8FF300777F73 /* XCRemoteSwiftPackageReference "CSV" */,
 			);
 			productRefGroup = D1A9C7EC23A1793E00E7372D /* Products */;
 			projectDirPath = "";
@@ -360,6 +418,7 @@
 				D1A9C7EA23A1793E00E7372D /* BeanCounty */,
 				D1A9C80023A1793F00E7372D /* BeanCountyTests */,
 				D1A9C80B23A1793F00E7372D /* BeanCountyUITests */,
+				D13BE37E27BDA73500D50EDD /* upwork2fa */,
 			);
 		};
 /* End PBXProject section */
@@ -412,6 +471,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		D13BE37B27BDA73500D50EDD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D13BE38227BDA73500D50EDD /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D1A9C7E723A1793E00E7372D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -485,6 +552,36 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		D13BE38327BDA73500D50EDD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H4Z9Z4RD2G;
+				ENABLE_HARDENED_RUNTIME = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.6;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		D13BE38427BDA73500D50EDD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H4Z9Z4RD2G;
+				ENABLE_HARDENED_RUNTIME = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.6;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		D1A9C81323A1793F00E7372D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -732,6 +829,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D13BE38527BDA73500D50EDD /* Build configuration list for PBXNativeTarget "upwork2fa" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D13BE38327BDA73500D50EDD /* Debug */,
+				D13BE38427BDA73500D50EDD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D1A9C7E623A1793E00E7372D /* Build configuration list for PBXProject "BeanCounty" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -787,6 +893,14 @@
 				minimumVersion = 4.1.0;
 			};
 		};
+		D13AE6C327BE8FF300777F73 /* XCRemoteSwiftPackageReference "CSV" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/yaslab/CSV.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		D14B8CB82434DA8900FBDCA5 /* XCRemoteSwiftPackageReference "OAuthSwiftAlamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/OAuthSwift/OAuthSwiftAlamofire.git";
@@ -823,6 +937,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D1137CB223B4FC8C00CC036C /* XCRemoteSwiftPackageReference "KeychainAccess" */;
 			productName = KeychainAccess;
+		};
+		D13AE6C427BE8FF300777F73 /* CSV */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D13AE6C327BE8FF300777F73 /* XCRemoteSwiftPackageReference "CSV" */;
+			productName = CSV;
 		};
 		D14B8CB92434DA8900FBDCA5 /* OAuthSwiftAlamofire */ = {
 			isa = XCSwiftPackageProductDependency;
